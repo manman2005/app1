@@ -1,9 +1,22 @@
 <?php include_once __DIR__ . '/partials/header.php'; ?>
 
-<!-- Hero Section -->
-<section class="relative bg-cover bg-center h-[600px] flex items-center justify-center text-white" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbb5eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-    <div class="relative z-10 text-center px-4 animate-fade-in-down">
+<!-- Hero Section with Image Slider -->
+<section x-data="{ activeSlide: 1, totalSlides: 3 }" x-init="setInterval(() => { activeSlide = (activeSlide % totalSlides) + 1 }, 5000)" class="relative h-[600px] flex items-center justify-center text-white overflow-hidden">
+    <!-- Background Images -->
+    <div class="absolute inset-0 w-full h-full">
+        <!-- Sea Image -->
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 1" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723a9ce6890?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        <!-- Mountain Image -->
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 2" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        <!-- Hotel Lobby Image -->
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 3" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbb5eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
+
+    <!-- Text Content -->
+    <div class="relative z-20 text-center px-4 animate-fade-in-down">
         <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">สัมผัสประสบการณ์การพักผ่อนสุดพิเศษ</h1>
         <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">ค้นพบความหรูหราและความสะดวกสบายที่ผสมผสานอย่างลงตัว ณ ใจกลางเมือง</p>
         <a href="#rooms" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">สำรวจห้องพัก</a>
