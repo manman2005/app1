@@ -39,15 +39,22 @@ class AuthController {
 
             $found_user = $user->findByUsername($_POST['username']);
 
-            if ($found_user && password_verify($_POST['password'], $found_user['password'])) {
-                $_SESSION['user_id'] = $found_user['id'];
-                $_SESSION['user_role'] = $found_user['role'];
-                $_SESSION['username'] = $found_user['username'];
-                
-                header("Location: /app1/public/"); // Redirect to homepage
-                exit;
+            if ($found_user) {
+                $verify_result = password_verify($_POST['password'], $found_user['password']);
+                if ($verify_result) {
+                    $_SESSION['user_id'] = $found_user['id'];
+                    $_SESSION['user_role'] = $found_user['role'];
+                    $_SESSION['username'] = $found_user['username'];
+                    $_SESSION['debug_message'] = "Login successful! (Debug: password_verify returned TRUE)";
+                    header("Location: /app1/public/"); // Redirect to homepage
+                    exit;
+                } else {
+                    $_SESSION['error_message'] = "Invalid username or password. (Debug: password_verify returned FALSE)";
+                    header("Location: /app1/public/auth/login");
+                    exit;
+                }
             } else {
-                $_SESSION['error_message'] = "Invalid username or password.";
+                $_SESSION['error_message'] = "Invalid username or password. (Debug: User not found)";
                 header("Location: /app1/public/auth/login");
                 exit;
             }
