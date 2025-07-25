@@ -1,56 +1,114 @@
 <?php include_once __DIR__ . '/partials/header.php'; ?>
 
-<section class="relative bg-cover bg-center h-screen flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="relative z-10 text-white text-center">
-        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4 animate-fade-in-up">ยินดีต้อนรับสู่ HotelSys</h1>
-        <p class="text-xl md:text-2xl mb-8 animate-fade-in-up delay-200">ประสบการณ์การพักผ่อนที่เหนือระดับรอคุณอยู่</p>
-        <?php if (isset($_SESSION['username'])): ?>
-            <p class="mt-4 text-xl animate-fade-in-up delay-400">สวัสดี, <span class="font-semibold"><?php echo htmlspecialchars($_SESSION['username']); ?></span>!</p>
-        <?php endif; ?>
-        <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up delay-600">จองห้องพักตอนนี้</a>
+<!-- Hero Section -->
+<section class="relative bg-cover bg-center h-[600px] flex items-center justify-center text-white" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbb5eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    <div class="relative z-10 text-center px-4 animate-fade-in-down">
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">สัมผัสประสบการณ์การพักผ่อนสุดพิเศษ</h1>
+        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">ค้นพบความหรูหราและความสะดวกสบายที่ผสมผสานอย่างลงตัว ณ ใจกลางเมือง</p>
+        <a href="#rooms" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">สำรวจห้องพัก</a>
     </div>
 </section>
 
-<section class="py-16 bg-gray-900 text-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-center mb-12">ห้องพักของเรา</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Rooms Section -->
+<section id="rooms" class="py-20 bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 dark:text-white">ห้องพักและห้องสวีท</h2>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">เลือกห้องพักที่เหมาะกับสไตล์การพักผ่อนของคุณ</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             <!-- Room Card 1 -->
-            <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
-                <img src="https://images.unsplash.com/photo-1596394516093-501ba6806ce9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Standard Room" class="w-full h-64 object-cover">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up">
+                <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Deluxe Room" class="w-full h-64 object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-white mb-2">ห้องสแตนดาร์ด</h3>
-                    <p class="text-gray-200 mb-4">ห้องพักสะดวกสบายพร้อมสิ่งอำนวยความสะดวกครบครัน เหมาะสำหรับการพักผ่อนระยะสั้น</p>
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2">ห้องดีลักซ์</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">ผ่อนคลายในห้องพักที่ออกแบบอย่างหรูหราพร้อมวิวเมืองที่สวยงาม</p>
+                    <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                        <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        <span>Wi-Fi, TV, เครื่องปรับอากาศ</span>
+                    </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-xl font-bold text-blue-400">฿1,500 / คืน</span>
-                        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">ดูรายละเอียด</a>
+                        <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿2,200 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
+                        <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
                     </div>
                 </div>
             </div>
             <!-- Room Card 2 -->
-            <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
-                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Deluxe Room" class="w-full h-64 object-cover">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up delay-200">
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Executive Suite" class="w-full h-64 object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-white mb-2">ห้องดีลักซ์</h3>
-                    <p class="text-gray-200 mb-4">ห้องพักกว้างขวางพร้อมวิวสวยงาม และพื้นที่นั่งเล่นแยกต่างหาก</p>
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2">ห้องเอ็กเซ็กคิวทีฟสวีท</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">ประสบการณ์เหนือระดับกับห้องสวีทที่กว้างขวางและสิ่งอำนวยความสะดวกครบครัน</p>
+                     <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                        <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        <span>Wi-Fi, TV, มินิบาร์, อ่างจากุซซี่</span>
+                    </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-xl font-bold text-blue-400">฿2,500 / คืน</span>
-                        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">ดูรายละเอียด</a>
+                        <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿3,800 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
+                        <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
                     </div>
                 </div>
             </div>
             <!-- Room Card 3 -->
-            <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
-                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Suite Room" class="w-full h-64 object-cover">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up delay-400">
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Family Suite" class="w-full h-64 object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-white mb-2">ห้องสวีท</h3>
-                    <p class="text-gray-200 mb-4">ห้องพักสุดหรูพร้อมห้องนอนแยก ห้องนั่งเล่น และสิ่งอำนวยความสะดวกระดับพรีเมียม</p>
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2">ห้องแฟมิลี่สวีท</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">ห้องพักขนาดใหญ่สำหรับครอบครัว พร้อมพื้นที่สำหรับทุกคนในครอบครัว</p>
+                     <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                        <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        <span>Wi-Fi, 2 TVs, เครื่องเล่นเกม, ครัวขนาดเล็ก</span>
+                    </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-xl font-bold text-blue-400">฿4,000 / คืน</span>
-                        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">ดูรายละเอียด</a>
+                        <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿5,200 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
+                        <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Us Section -->
+<section class="py-20 bg-white dark:bg-gray-800">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="animate-fade-in-right">
+                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1949&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="About HotelSys" class="rounded-lg shadow-xl w-full">
+            </div>
+            <div class="animate-fade-in-left">
+                <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">เรื่องราวของเรา</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">HotelSys ก่อตั้งขึ้นด้วยความมุ่งมั่นที่จะมอบประสบการณ์การพักผ่อนที่น่าจดจำ เราผสมผสานการออกแบบที่ทันสมัยเข้ากับการบริการที่เป็นเลิศเพื่อสร้างสรรค์ช่วงเวลาที่พิเศษสำหรับแขกทุกท่าน</p>
+                <p class="text-gray-600 dark:text-gray-400">เราเชื่อว่าทุกการเดินทางคือโอกาสในการสร้างความทรงจำใหม่ๆ และเราพร้อมที่จะเป็นส่วนหนึ่งของการเดินทางของคุณ</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Facilities Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 dark:text-white">สิ่งอำนวยความสะดวกของเรา</h2>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">เรามีบริการครบครันเพื่อตอบสนองทุกความต้องการของคุณ</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md transform transition duration-300 hover:scale-110">
+                <svg class="h-12 w-12 mx-auto text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">สระว่ายน้ำ</h3>
+            </div>
+            <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md transform transition duration-300 hover:scale-110">
+                <svg class="h-12 w-12 mx-auto text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">ฟิตเนส 24 ชม.</h3>
+            </div>
+            <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md transform transition duration-300 hover:scale-110">
+                <svg class="h-12 w-12 mx-auto text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.29 1.29.904 3.43.028 4.305-1.164 1.164-3.337 1.164-4.501 0-1.164-1.164-1.164-3.337 0-4.501l5-5A2 2 0 0017 8.828V5l-1-1z"></path></svg>
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">สปาและซาวน่า</h3>
+            </div>
+            <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md transform transition duration-300 hover:scale-110">
+                <svg class="h-12 w-12 mx-auto text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v.01M12 12v.01M12 16v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">ห้องอาหาร</h3>
             </div>
         </div>
     </div>
