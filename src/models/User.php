@@ -66,5 +66,13 @@ class User {
         }
         return false;
     }
+
+    // Get all users
+    public function getAllUsers() {
+        $query = "SELECT id, username, email, role FROM " . $this->table_name . " ORDER BY username ASC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 }
 ?>
