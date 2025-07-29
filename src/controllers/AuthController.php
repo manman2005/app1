@@ -46,7 +46,11 @@ class AuthController {
                     $_SESSION['user_role'] = $found_user['role'];
                     $_SESSION['username'] = $found_user['username'];
                     $_SESSION['debug_message'] = "Login successful! (Debug: password_verify returned TRUE)";
-                    header("Location: /app1/public/"); // Redirect to homepage
+                    if ($found_user['role'] === 'admin') {
+                        header("Location: /app1/public/admin/dashboard");
+                    } else {
+                        header("Location: /app1/public/");
+                    }
                     exit;
                 } else {
                     $_SESSION['error_message'] = "Invalid username or password. (Debug: password_verify returned FALSE)";
