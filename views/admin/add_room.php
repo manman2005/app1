@@ -47,10 +47,10 @@
         </div>
 
         <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="image_url">
-                Image URL:
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
+                Room Image:
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image_url" type="text" name="image_url">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image" type="file" name="image" accept="image/*">
         </div>
 
         <div class="mb-6">
@@ -71,5 +71,15 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const successMessageDiv = document.querySelector('.bg-green-100.border-green-400');
+        if (successMessageDiv) {
+            const message = successMessageDiv.querySelector('span').innerText;
+            alert(message);
+        }
+    });
+</script>
 
 <?php include __DIR__ . '/../partials/footer.php'; ?>
