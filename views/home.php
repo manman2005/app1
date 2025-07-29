@@ -34,16 +34,16 @@
             <?php if (!empty($rooms)): ?>
                 <?php foreach ($rooms as $room): ?>
                     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up">
-                        <img src="<?php echo htmlspecialchars($room['image']); ?>" alt="<?php echo htmlspecialchars($room['name']); ?>" class="w-full h-64 object-cover">
+                        <img src="<?= htmlspecialchars($room['image_url']); ?>" alt="<?= htmlspecialchars($room['room_number']); ?>" class="w-full h-64 object-cover">
                         <div class="p-6">
-                            <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2"><?php echo htmlspecialchars($room['name']); ?></h3>
+                            <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2"><?= htmlspecialchars($room['room_number']); ?></h3>
                             <p class="text-gray-600 dark:text-gray-400 mb-4"><?php echo htmlspecialchars($room['description']); ?></p>
                             <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
                                 <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                                 <span>Wi-Fi, TV, เครื่องปรับอากาศ</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿<?php echo number_format($room['price']); ?> <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
+                                <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿<?= number_format($room['price_per_night']); ?> <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
                                 <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
                             </div>
                         </div>

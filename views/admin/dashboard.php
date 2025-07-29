@@ -33,8 +33,11 @@
         </div>
     </div>
 
-    <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">User Management</h2>
+    <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mb-8">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">User Management</h2>
+            <a href="/app1/public/admin/addRoom" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add New Room</a>
+        </div>
     <?php if (!empty($users)): ?>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-gray-50 dark:bg-gray-900">
@@ -68,6 +71,52 @@
         </div>
     <?php else: ?>
         <p>No users found.</p>
+    <?php endif; ?>
+</div>
+
+<div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mt-8">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Room Management</h2>
+    <?php 
+        $room = new Room();
+        $stmt_rooms = $room->getAllRooms();
+        $rooms = $stmt_rooms->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+    <?php if (!empty($rooms)): ?>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-gray-50 dark:bg-gray-900">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
+                        <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Room Number</th>
+                        <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</th>
+                        <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Price/Night</th>
+                        <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Available</th>
+                        <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Room Type</th>
+                        <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Image URL</th>
+                        <th class="py-2 px-4 border-b border-gray-200 bg-gray-50"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rooms as $room): ?>
+                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['id']); ?></td>
+                            <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['room_number']); ?></td>
+                            <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['description']); ?></td>
+                            <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['price_per_night']); ?></td>
+                            <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['is_available'] ? 'Yes' : 'No'); ?></td>
+                            <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['room_type']); ?></td>
+                            <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['image_url']); ?></td>
+                            <td class="py-2 px-4 border-b border-gray-200 dark:border-gray-700 text-right">
+                                <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md transition duration-300 mr-2">Edit</a>
+                                <a href="#" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded-md transition duration-300">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else: ?>
+        <p>No rooms found.</p>
     <?php endif; ?>
 </div>
 
