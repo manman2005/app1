@@ -31,54 +31,27 @@
             <p class="text-gray-600 dark:text-gray-400 mt-2">เลือกห้องพักที่เหมาะกับสไตล์การพักผ่อนของคุณ</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <!-- Room Card 1 -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up">
-                <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Deluxe Room" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2">ห้องดีลักซ์</h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4">ผ่อนคลายในห้องพักที่ออกแบบอย่างหรูหราพร้อมวิวเมืองที่สวยงาม</p>
-                    <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-                        <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                        <span>Wi-Fi, TV, เครื่องปรับอากาศ</span>
+            <?php if (!empty($rooms)): ?>
+                <?php foreach ($rooms as $room): ?>
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up">
+                        <img src="<?php echo htmlspecialchars($room['image']); ?>" alt="<?php echo htmlspecialchars($room['name']); ?>" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2"><?php echo htmlspecialchars($room['name']); ?></h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4"><?php echo htmlspecialchars($room['description']); ?></p>
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                                <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                                <span>Wi-Fi, TV, เครื่องปรับอากาศ</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿<?php echo number_format($room['price']); ?> <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
+                                <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿2,200 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
-                        <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Room Card 2 -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up delay-200">
-                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Executive Suite" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2">ห้องเอ็กเซ็กคิวทีฟสวีท</h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4">ประสบการณ์เหนือระดับกับห้องสวีทที่กว้างขวางและสิ่งอำนวยความสะดวกครบครัน</p>
-                     <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-                        <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                        <span>Wi-Fi, TV, มินิบาร์, อ่างจากุซซี่</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿3,800 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
-                        <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Room Card 3 -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up delay-400">
-                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Family Suite" class="w-full h-64 object-cover">
-                <div class="p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2">ห้องแฟมิลี่สวีท</h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4">ห้องพักขนาดใหญ่สำหรับครอบครัว พร้อมพื้นที่สำหรับทุกคนในครอบครัว</p>
-                     <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-                        <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                        <span>Wi-Fi, 2 TVs, เครื่องเล่นเกม, ครัวขนาดเล็ก</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿5,200 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
-                        <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
-                    </div>
-                </div>
-            </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="text-center text-gray-600 dark:text-gray-400">ไม่พบข้อมูลห้องพัก</p>
+            <?php endif; ?>
         </div>
     </div>
 </section>
