@@ -63,14 +63,32 @@ class Room {
     }
 
     // Get room by ID
-    public function getById($id) {
-        $query = "SELECT id, room_number, description, price_per_night, is_available, room_type, image_url FROM " . $this->table_name . " WHERE id = :id LIMIT 0,1";
+    public static function findById($id) {
+        $database = new Database();
+        $conn = $database->getConnection();
+        $table_name = "rooms";
 
-        $stmt = $this->conn->prepare($query);
+        $query = "SELECT * FROM " . $table_name . " WHERE id = :id LIMIT 1";
+
+        $stmt = $conn->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            $room = new Room();
+            $room->id = $row['id'];
+            $room->room_number = $row['room_number'];
+            $room->description = $row['description'];
+            $room->price_per_night = $row['price_per_night'];
+            $room->is_available = $row['is_available'];
+            $room->room_type = $row['room_type'];
+            $room->image_url = $row['image_url'];
+            return $room;
+        }
+
+        return null;
     }
 
     // Update a room

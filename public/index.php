@@ -3,6 +3,8 @@ session_start();
 require_once __DIR__ . '/../src/controllers/AuthController.php';
 require_once __DIR__ . '/../src/controllers/HomeController.php';
 require_once __DIR__ . '/../src/controllers/AdminController.php';
+require_once __DIR__ . '/../src/controllers/BookingController.php';
+
 
 // Basic Router
 $request_uri = $_SERVER['REQUEST_URI'];
@@ -17,6 +19,7 @@ $route = parse_url($route, PHP_URL_PATH);
 $authController = new AuthController();
 $homeController = new HomeController();
 $adminController = new AdminController();
+$bookingController = new BookingController();
 
 switch ($route) {
     // --- Authentication Routes ---
@@ -34,6 +37,18 @@ switch ($route) {
         break;
     case 'auth/logout':
         $authController->logout();
+        break;
+
+    // --- Booking Routes ---
+    case 'book':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $bookingController->store();
+        } else {
+            $bookingController->create();
+        }
+        break;
+    case 'my-bookings':
+        $bookingController->index();
         break;
 
     // --- Admin Routes ---

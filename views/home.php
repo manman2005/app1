@@ -44,7 +44,7 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿<?= number_format($room['price_per_night']); ?> <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
-                                <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
+                                <a href="/app1/public/book?room_id=<?= htmlspecialchars($room['id']); ?>" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">จองเลย</a>
                             </div>
                         </div>
                     </div>
