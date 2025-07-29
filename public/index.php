@@ -41,6 +41,12 @@ switch ($route) {
         // Add middleware check here later
         $adminController->dashboard();
         break;
+    case 'admin/editUser':
+        $adminController->editUser();
+        break;
+    case 'admin/deleteUser':
+        $adminController->deleteUser();
+        break;
 
     // --- Home Page --- 
     case '':
