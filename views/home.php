@@ -5,11 +5,11 @@
     <!-- Background Images -->
     <div class="absolute inset-0 w-full h-full">
         <!-- Sea Image -->
-        <div x-show.transition.opacity.duration.2000ms="activeSlide === 1" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/app1/public/img/486703445_683375570878229_1091055174315269141_n.jpg');"></div>
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 1" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/app1/public/img/man.jpg');"></div>
         <!-- Mountain Image -->
-        <div x-show.transition.opacity.duration.2000ms="activeSlide === 2" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/app1/public/img/486826403_683375754211544_5369952372350186305_n.jpg');"></div>
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 2" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/app1/public/img/man1.jpg');"></div>
         <!-- Hotel Lobby Image -->
-        <div x-show.transition.opacity.duration.2000ms="activeSlide === 3" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/app1/public/img/486703445_683375570878229_1091055174315269141_n.jpg');"></div>
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 3" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/app1/public/img/man2.jpg');"></div>
     </div>
 
     <!-- Overlay -->
@@ -18,7 +18,7 @@
     <!-- Text Content -->
     <div class="relative z-20 text-center px-4 animate-fade-in-down">
         <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">สัมผัสประสบการณ์การพักผ่อนสุดพิเศษ</h1>
-        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">ค้นพบความหรูหราและความสะดวกสบายที่ผสมผสานอย่างลงตัว ณ ใจกลางเมือง</p>
+        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">สัมผัสความสงบ ท่ามกลางขุนเขาและสายหมอก ปล่อยใจให้ธรรมชาติบำบัดทุกความเหนื่อยล้า</p>
         <a href="#rooms" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">สำรวจห้องพัก</a>
     </div>
 </section>
@@ -45,6 +45,7 @@
                         ?>
                         <img src="<?= $display_image; ?>" alt="<?= htmlspecialchars($room['room_number']); ?>" class="w-full h-64 object-cover">
                         <div class="p-6">
+                            <?php echo '<p>Debug room_type: ' . htmlspecialchars($room['room_type']) . '</p>'; ?>
                             <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2"><?= htmlspecialchars($room['room_number']); ?></h3>
                             <p class="text-gray-600 dark:text-gray-400 mb-4"><?php echo htmlspecialchars($room['description']); ?></p>
                             <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">

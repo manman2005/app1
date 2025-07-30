@@ -11,7 +11,7 @@
     <nav class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
-                <a href="/app1/public/" class="text-2xl font-bold text-blue-600 dark:text-white">HotelSys</a>
+                <a href="/app1/public/" class="text-2xl font-bold text-blue-600 dark:text-white"> Srinaman Camping&Resort <br> ศรีนาม่าน แคมป์ปิ้งแอนด์รีสอร์ท</a>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-4">
