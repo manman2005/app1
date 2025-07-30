@@ -58,6 +58,13 @@ class BookingController {
         $booking->total_price = $total_price;
         $booking->status = 'confirmed'; // Or 'pending' if you have an approval process
 
+        // Check for room availability
+        if (!$booking->isRoomAvailable($room_id, $start_date, $end_date)) {
+            $_SESSION['error_message'] = "Room is not available for the selected dates. (ห้องพักไม่ว่างสำหรับวันที่เลือก)";
+            header('Location: /app1/public/book?room_id=' . $room_id);
+            exit();
+        }
+
         if ($booking->create()) {
             // Load the success view
             require __DIR__ . '/../../views/bookings/success.php';

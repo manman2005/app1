@@ -56,4 +56,23 @@ class Booking {
 
         return $stmt;
     }
+
+    public function isRoomAvailable($room_id, $check_in_date, $check_out_date) {
+        $query = "SELECT COUNT(*) as count FROM " . $this->table_name . " 
+                  WHERE room_id = :room_id 
+                  AND ( 
+                      (check_in_date <= :check_out_date AND check_out_date >= :check_in_date)
+                  )";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":room_id", $room_id);
+        $stmt->bindParam(":check_in_date", $check_in_date);
+        $stmt->bindParam(":check_out_date", $check_out_date);
+
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row['count'] == 0;
+    }
 }
