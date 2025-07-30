@@ -1,31 +1,59 @@
 <?php
 
+require_once __DIR__ . '/../../config/database.php';
+
 class Booking {
+    private $conn;
+    private $table_name = "bookings";
+
     public $id;
     public $user_id;
     public $room_id;
-    public $start_date;
-    public $end_date;
-    public $status; // e.g., pending, confirmed, cancelled
+    public $check_in_date;
+    public $check_out_date;
+    public $total_price;
+    public $status;
+    public $created_at;
 
-    public function __construct($user_id, $room_id, $start_date, $end_date, $status = 'pending') {
-        $this->user_id = $user_id;
-        $this->room_id = $room_id;
-        $this->start_date = $start_date;
-        $this->end_date = $end_date;
-        $this->status = $status;
+    public function __construct() {
+        $database = new Database();
+        $this->conn = $database->getConnection();
     }
 
-    public function save() {
-        // Logic to save the booking to the database
-        // This would involve getting a database connection and running an INSERT query
+    public function create() {
+        $query = "INSERT INTO " . $this->table_name . " SET user_id=:user_id, room_id=:room_id, check_in_date=:check_in_date, check_out_date=:check_out_date, total_price=:total_price, status=:status";
+
+        $stmt = $this->conn->prepare($query);
+
+        // Sanitize
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+        $this->room_id = htmlspecialchars(strip_tags($this->room_id));
+        $this->check_in_date = htmlspecialchars(strip_tags($this->check_in_date));
+        $this->check_out_date = htmlspecialchars(strip_tags($this->check_out_date));
+        $this->total_price = htmlspecialchars(strip_tags($this->total_price));
+        $this->status = htmlspecialchars(strip_tags($this->status));
+
+        // Bind
+        $stmt->bindParam(":user_id", $this->user_id);
+        $stmt->bindParam(":room_id", $this->room_id);
+        $stmt->bindParam(":check_in_date", $this->check_in_date);
+        $stmt->bindParam(":check_out_date", $this->check_out_date);
+        $stmt->bindParam(":total_price", $this->total_price);
+        $stmt->bindParam(":status", $this->status);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
     }
 
-    public static function findByUserId($user_id) {
-        // Logic to find bookings by user ID from the database
-    }
+    public function getAllBookings() {
+        $query = "SELECT b.id, u.username, r.room_number, b.check_in_date, b.check_out_date, b.total_price, b.status, b.created_at FROM " . $this->table_name . " b LEFT JOIN users u ON b.user_id = u.id LEFT JOIN rooms r ON b.room_id = r.id ORDER BY b.created_at DESC";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
 
-    public static function findByRoomId($room_id) {
-        // Logic to find bookings by room ID from the database
+        return $stmt;
     }
 }

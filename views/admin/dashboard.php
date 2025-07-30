@@ -73,6 +73,49 @@
     <?php endif; ?>
 </div>
 
+<!-- Bookings Table -->
+<div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mt-8">
+    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Recent Bookings</h2>
+    <?php if (!empty($bookings)): ?>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md">
+                <thead>
+                    <tr class="bg-gray-100 dark:bg-gray-700">
+                        <th class="py-3 px-6 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">ID</th>
+                        <th class="py-3 px-6 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">User</th>
+                        <th class="py-3 px-6 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Room</th>
+                        <th class="py-3 px-6 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Check-in</th>
+                        <th class="py-3 px-6 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Check-out</th>
+                        <th class="py-3 px-6 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Total Price</th>
+                        <th class="py-3 px-6 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                        <th class="py-3 px-6 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($bookings as $booking): ?>
+                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150 ease-in-out">
+                            <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?= htmlspecialchars($booking['id']); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?= htmlspecialchars($booking['username']); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?= htmlspecialchars($booking['room_number']); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?= htmlspecialchars(date('d M Y', strtotime($booking['check_in_date']))); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?= htmlspecialchars(date('d M Y', strtotime($booking['check_out_date']))); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white">฿<?= number_format($booking['total_price'], 2); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <?= $booking['status'] == 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'; ?>">
+                                    <?= htmlspecialchars($booking['status']); ?>
+                                </span>
+                            </td>
+                            <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?= htmlspecialchars(date('d M Y, H:i', strtotime($booking['created_at']))); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else: ?>
+        <p class="text-center text-gray-600 dark:text-gray-400">No bookings found.</p>
+    <?php endif; ?>
+</div>
+
 <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mt-8">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Room Management</h2>

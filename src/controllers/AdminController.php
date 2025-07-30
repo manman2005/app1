@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../models/Room.php';
+require_once __DIR__ . '/../models/Booking.php';
 
 class AdminController {
     public function dashboard() {
@@ -13,6 +14,10 @@ class AdminController {
         $user = new User();
         $stmt = $user->getAllUsers();
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $booking = new Booking();
+        $stmt = $booking->getAllBookings();
+        $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         include_once __DIR__ . '/../../views/admin/dashboard.php';
     }

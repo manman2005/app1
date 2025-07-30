@@ -19,13 +19,11 @@ class BookingController {
 
     public function store() {
         // Handle the booking form submission
-        session_start();
         if (!isset($_SESSION['user_id'])) {
             header('Location: /login');
             exit();
         }
 
-        $user_id = $_SESSION['user_id'];
         $room_id = $_POST['room_id'];
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
@@ -37,19 +35,41 @@ class BookingController {
             return;
         }
 
-        $booking = new Booking($user_id, $room_id, $start_date, $end_date);
-        // In a real application, you would save this to the database
-        // $booking->save();
+        // Server-side calculation for total price
+        $room = new Room();
+        $room = $room->getById($room_id);
+        if (!$room) {
+            echo "Room not found.";
+            return;
+        }
 
-        // For now, just show a confirmation
-        echo "Booking successful!";
-        // Redirect to a confirmation page or user's bookings page
-        // header('Location: /my-bookings');
+        $startDate = new DateTime($start_date);
+        $endDate = new DateTime($end_date);
+        $interval = $startDate->diff($endDate);
+        $days = $interval->days;
+        $total_price = $days * $room->price_per_night;
+
+        // Create booking
+        $booking = new Booking();
+        $booking->user_id = $_SESSION['user_id'];
+        $booking->room_id = $room_id;
+        $booking->check_in_date = $start_date;
+        $booking->check_out_date = $end_date;
+        $booking->total_price = $total_price;
+        $booking->status = 'confirmed'; // Or 'pending' if you have an approval process
+
+        if ($booking->create()) {
+            // Load the success view
+            require __DIR__ . '/../../views/bookings/success.php';
+        } else {
+            // Handle booking creation failure
+            echo "Failed to create booking.";
+        }
     }
 
     public function index() {
         // Display a user's bookings
-        session_start();
+        
         if (!isset($_SESSION['user_id'])) {
             header('Location: /login');
             exit();
