@@ -1,6 +1,7 @@
 <?php include_once __DIR__ . '/../partials/header.php'; ?>
+<?php include_once __DIR__ . '/../partials/admin_navbar.php'; ?>
 
-<div class="container mx-auto px-6 py-20">
+<div class="container mx-auto px-6 py-8">
     <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-8 text-center">Admin Dashboard</h1>
 
     <?php if (isset($_SESSION['message'])): ?>
@@ -32,7 +33,7 @@
         </div>
     </div>
 
-    <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mb-8">
+    <div id="user-management" class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mb-8">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">User Management</h2>
             <a href="/app1/public/admin/addUser" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add New User</a>
@@ -74,7 +75,7 @@
 </div>
 
 <!-- Bookings Table -->
-<div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mt-8">
+<div id="booking-management" class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mt-8">
     <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Recent Bookings</h2>
     <?php if (!empty($bookings)): ?>
         <div class="overflow-x-auto">
@@ -116,7 +117,7 @@
     <?php endif; ?>
 </div>
 
-<div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mt-8">
+<div id="room-management" class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md mt-8">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Room Management</h2>
         <a href="/app1/public/admin/addRoom" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add New Room</a>

@@ -1,6 +1,7 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
+<?php include __DIR__ . '/../partials/admin_navbar.php'; ?>
 
-<div class="container mx-auto px-6 py-20">
+<div class="container mx-auto px-6 py-8">
     <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-8 text-center">Add New Room</h1>
 
     <?php if (isset($_SESSION['message'])): ?>

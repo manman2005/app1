@@ -60,7 +60,7 @@ class BookingController {
 
         // Check for room availability
         if (!$booking->isRoomAvailable($room_id, $start_date, $end_date)) {
-            $_SESSION['error_message'] = "Room is not available for the selected dates. (ห้องพักไม่ว่างสำหรับวันที่เลือก)";
+            $_SESSION['error_message'] = "Room is not available for the selected dates.";
             header('Location: /app1/public/book?room_id=' . $room_id);
             exit();
         }
