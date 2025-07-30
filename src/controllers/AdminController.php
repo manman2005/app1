@@ -73,6 +73,32 @@ class AdminController {
         exit();
     }
 
+    public function addUser() {
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+            header('Location: /app1/public/auth/login');
+            exit();
+        }
+
+        $user = new User();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $user->username = $_POST['username'];
+            $user->password = $_POST['password']; // Remember to hash this!
+            $user->email = $_POST['email'];
+            $user->role = $_POST['role'];
+
+            if ($user->create()) {
+                $_SESSION['message'] = 'User added successfully.';
+            } else {
+                $_SESSION['error'] = 'Failed to add user.';
+            }
+            header('Location: /app1/public/admin/dashboard');
+            exit();
+        }
+
+        include_once __DIR__ . '/../../views/admin/add_user.php';
+    }
+
     public function addRoom() {
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
             header('Location: /app1/public/auth/login');

@@ -62,6 +62,9 @@ switch ($route) {
     case 'admin/deleteUser':
         $adminController->deleteUser();
         break;
+    case 'admin/addUser':
+        $adminController->addUser();
+        break;
     case 'admin/addRoom':
         $adminController->addRoom();
         break;
