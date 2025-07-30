@@ -5,11 +5,11 @@
     <!-- Background Images -->
     <div class="absolute inset-0 w-full h-full">
         <!-- Sea Image -->
-        <div x-show.transition.opacity.duration.2000ms="activeSlide === 1" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 1" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/app1/public/img/486703445_683375570878229_1091055174315269141_n.jpg');"></div>
         <!-- Mountain Image -->
-        <div x-show.transition.opacity.duration.2000ms="activeSlide === 2" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 2" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/app1/public/img/486826403_683375754211544_5369952372350186305_n.jpg');"></div>
         <!-- Hotel Lobby Image -->
-        <div x-show.transition.opacity.duration.2000ms="activeSlide === 3" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbb5eb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 3" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/app1/public/img/486703445_683375570878229_1091055174315269141_n.jpg');"></div>
     </div>
 
     <!-- Overlay -->
@@ -49,7 +49,16 @@
                             <p class="text-gray-600 dark:text-gray-400 mb-4"><?php echo htmlspecialchars($room['description']); ?></p>
                             <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
                                 <svg class="h-5 w-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                                <span>Wi-Fi, TV, เครื่องปรับอากาศ</span>
+                                <span>
+                                    <?php 
+                                        $amenities = [
+                                            'Standard' => 'Wi-Fi, TV',
+                                            'Deluxe' => 'Wi-Fi, TV, เครื่องปรับอากาศ',
+                                            'Suite' => 'Wi-Fi, TV, เครื่องปรับอากาศ, อ่างอาบน้ำ'
+                                        ];
+                                        echo htmlspecialchars($amenities[$room['room_type']] ?? 'ไม่ระบุ');
+                                    ?>
+                                </span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿<?= number_format($room['price_per_night']); ?> <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ คืน</span></span>
@@ -70,7 +79,7 @@
     <div class="container mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div class="animate-fade-in-right">
-                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1949&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="About HotelSys" class="rounded-lg shadow-xl w-full">
+                <img src="/app1/public/img/486826403_683375754211544_5369952372350186305_n.jpg" alt="About HotelSys" class="rounded-lg shadow-xl w-full">
             </div>
             <div class="animate-fade-in-left">
                 <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">เรื่องราวของเรา</h2>
