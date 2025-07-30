@@ -18,48 +18,48 @@
     <?php endif; ?>
 
     <form action="/app1/public/admin/editRoom" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <input type="hidden" name="id" value="<?= htmlspecialchars($roomData['id']); ?>">
+        <input type="hidden" name="id" value="<?= htmlspecialchars($roomData->id); ?>">
         
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="room_number">
                 Room Number:
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="room_number" type="text" name="room_number" value="<?= htmlspecialchars($roomData['room_number']); ?>" required>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="room_number" type="text" name="room_number" value="<?= htmlspecialchars($roomData->room_number); ?>" required>
         </div>
 
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
                 Description:
             </label>
-            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" name="description" rows="4"><?= htmlspecialchars($roomData['description']); ?></textarea>
+            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" name="description" rows="4"><?= htmlspecialchars($roomData->description); ?></textarea>
         </div>
 
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="price_per_night">
                 Price Per Night:
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price_per_night" type="number" step="0.01" name="price_per_night" value="<?= htmlspecialchars($roomData['price_per_night']); ?>" required>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price_per_night" type="number" step="0.01" name="price_per_night" value="<?= htmlspecialchars($roomData->price_per_night); ?>" required>
         </div>
 
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="room_type">
                 Room Type:
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="room_type" type="text" name="room_type" value="<?= htmlspecialchars($roomData['room_type']); ?>" required>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="room_type" type="text" name="room_type" value="<?= htmlspecialchars($roomData->room_type); ?>" required>
         </div>
 
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="image_url">
                 Image URL:
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image_url" type="text" name="image_url" value="<?= htmlspecialchars($roomData['image_url']); ?>">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image_url" type="text" name="image_url" value="<?= htmlspecialchars($roomData->image_url); ?>">
         </div>
 
         <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2">
                 Availability:
             </label>
-            <input type="checkbox" id="is_available" name="is_available" value="1" <?= ($roomData['is_available'] == 1) ? 'checked' : ''; ?>>
+            <input type="checkbox" id="is_available" name="is_available" value="1" <?= ($roomData->is_available == 1) ? 'checked' : ''; ?>>
             <label for="is_available" class="ml-2 text-gray-700">Available</label>
         </div>
 

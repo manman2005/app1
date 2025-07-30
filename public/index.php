@@ -65,6 +65,12 @@ switch ($route) {
     case 'admin/addRoom':
         $adminController->addRoom();
         break;
+    case 'admin/editRoom':
+        $adminController->editRoom();
+        break;
+    case 'admin/deleteRoom':
+        $adminController->deleteRoom();
+        break;
 
     // --- Home Page --- 
     case '':

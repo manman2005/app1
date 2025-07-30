@@ -7,7 +7,8 @@ class BookingController {
         // Display the booking form
         // This would typically involve getting room details
         if (isset($_GET['room_id'])) {
-            $room = Room::findById($_GET['room_id']);
+            $room = new Room();
+            $room = $room->getById($_GET['room_id']);
             // Pass the $room object to the view
             require __DIR__ . '/../../views/bookings/create.php';
         } else {
