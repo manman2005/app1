@@ -12,7 +12,7 @@ class Room {
     public $price_per_night;
     public $is_available;
     public $room_type;
-    public $image_url;
+    public $image_url; // This will now be an array in PHP, stored as JSON string in DB
 
     public function __construct() {
         $database = new Database();
@@ -24,7 +24,12 @@ class Room {
         $query = "SELECT id, room_number, description, price_per_night, is_available, room_type, image_url FROM " . $this->table_name . " ORDER BY room_number ASC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt;
+
+        $rooms_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($rooms_data as &$room) {
+            $room['image_url'] = json_decode($room['image_url'], true) ?: [];
+        }
+        return $rooms_data; // Return array of associative arrays
     }
 
     // Create a new room
@@ -39,13 +44,18 @@ class Room {
 
         $stmt = $this->conn->prepare($query);
 
-        // Sanitize input
+        // Sanitize input for non-image_url fields
         $this->room_number = htmlspecialchars(strip_tags($this->room_number));
         $this->description = htmlspecialchars(strip_tags($this->description));
         $this->price_per_night = htmlspecialchars(strip_tags($this->price_per_night));
         $this->is_available = htmlspecialchars(strip_tags($this->is_available));
         $this->room_type = htmlspecialchars(strip_tags($this->room_type));
-        $this->image_url = htmlspecialchars(strip_tags($this->image_url));
+
+        // Handle image_url as JSON
+        $image_url_json = json_encode($this->image_url);
+        if ($image_url_json === false) {
+            $image_url_json = '[]'; // Default to empty array if encoding fails
+        }
 
         // Bind the values
         $stmt->bindParam(':room_number', $this->room_number);
@@ -53,7 +63,7 @@ class Room {
         $stmt->bindParam(':price_per_night', $this->price_per_night);
         $stmt->bindParam(':is_available', $this->is_available);
         $stmt->bindParam(':room_type', $this->room_type);
-        $stmt->bindParam(':image_url', $this->image_url);
+        $stmt->bindParam(':image_url', $image_url_json); // Bind JSON string
 
         if ($stmt->execute()) {
             return true;
@@ -79,7 +89,7 @@ class Room {
             $this->price_per_night = $row['price_per_night'];
             $this->is_available = $row['is_available'];
             $this->room_type = $row['room_type'];
-            $this->image_url = $row['image_url'];
+            $this->image_url = json_decode($row['image_url'], true) ?: []; // Decode JSON to array
             return $this;
         }
 
@@ -99,14 +109,19 @@ class Room {
 
         $stmt = $this->conn->prepare($query);
 
-        // Sanitize input
+        // Sanitize input for non-image_url fields
         $this->room_number = htmlspecialchars(strip_tags($this->room_number));
         $this->description = htmlspecialchars(strip_tags($this->description));
         $this->price_per_night = htmlspecialchars(strip_tags($this->price_per_night));
         $this->is_available = htmlspecialchars(strip_tags($this->is_available));
         $this->room_type = htmlspecialchars(strip_tags($this->room_type));
-        $this->image_url = htmlspecialchars(strip_tags($this->image_url));
         $this->id = htmlspecialchars(strip_tags($this->id));
+
+        // Handle image_url as JSON
+        $image_url_json = json_encode($this->image_url);
+        if ($image_url_json === false) {
+            $image_url_json = '[]'; // Default to empty array if encoding fails
+        }
 
         // Bind the values
         $stmt->bindParam(':room_number', $this->room_number);
@@ -114,7 +129,7 @@ class Room {
         $stmt->bindParam(':price_per_night', $this->price_per_night);
         $stmt->bindParam(':is_available', $this->is_available);
         $stmt->bindParam(':room_type', $this->room_type);
-        $stmt->bindParam(':image_url', $this->image_url);
+        $stmt->bindParam(':image_url', $image_url_json); // Bind JSON string
         $stmt->bindParam(':id', $this->id);
 
         if ($stmt->execute()) {
@@ -140,6 +155,53 @@ class Room {
             return true;
         }
 
+        return false;
+    }
+
+    // Delete image by index
+    public function deleteImageByIndex($index) {
+        // First, get the current room data to access the image_url array
+        $current_room = $this->getById($this->id);
+
+        if (!$current_room || !is_array($current_room->image_url) || !isset($current_room->image_url[$index])) {
+            error_log("Room or image not found for room_id: " . $this->id . ", index: " . $index);
+            return false; // Room or image not found
+        }
+
+        $image_to_delete_url = $current_room->image_url[$index];
+        
+        // Remove the image URL from the array
+        array_splice($current_room->image_url, $index, 1);
+
+        // Update the room in the database with the new image_url array
+        $query = "UPDATE " . $this->table_name . " SET image_url = :image_url WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+
+        $image_url_json = json_encode($current_room->image_url);
+        if ($image_url_json === false) {
+            error_log("JSON encoding failed for image_url for room_id: " . $this->id);
+            $image_url_json = '[]';
+        }
+
+        $stmt->bindParam(':image_url', $image_url_json);
+        $stmt->bindParam(':id', $this->id);
+
+        if ($stmt->execute()) {
+            // Attempt to delete the physical file
+            $base_path = __DIR__ . '/../../public'; // Adjust this path if your public folder is elsewhere
+            $file_path = $base_path . str_replace('/app1/public', '', $image_to_delete_url);
+            
+            if (file_exists($file_path)) {
+                if (!unlink($file_path)) {
+                    error_log("Failed to delete physical file: " . $file_path);
+                }
+            } else {
+                error_log("Physical file not found: " . $file_path);
+            }
+            return true;
+        }
+
+        error_log("Database update failed for image_url for room_id: " . $this->id);
         return false;
     }
 }

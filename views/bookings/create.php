@@ -15,15 +15,31 @@
 <div class="container mx-auto px-4 py-12">
     <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden">
         <div class="md:flex">
-            <!-- Room Image -->
-            <div class="md:w-1/2">
-                <?php if (isset($room) && !empty($room->image_url)) : ?>
-                    <img src="<?= htmlspecialchars($room->image_url); ?>" alt="Room <?= htmlspecialchars($room->room_number); ?>" class="w-full h-full object-cover">
-                <?php else : ?>
-                    <div class="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                        <span class="text-gray-500">No Image Available</span>
-                    </div>
-                <?php endif; ?>
+            <!-- Room Image Gallery -->
+            <div class="md:w-1/2 p-4">
+                <?php 
+                    $images = [];
+                    if (isset($room) && !empty($room->image_url) && is_array($room->image_url)) {
+                        $images = $room->image_url;
+                    } else {
+                        // Placeholder image if no image is available
+                        $images[] = 'https://via.placeholder.com/600x400?text=No+Image';
+                    }
+                    $main_image = htmlspecialchars($images[0]);
+                ?>
+                <div class="mb-4">
+                    <img id="main-room-image" src="<?= $main_image; ?>" alt="Room <?= htmlspecialchars($room->room_number); ?>" class="w-full h-96 object-cover rounded-lg shadow-md">
+                </div>
+                <div class="flex space-x-2 overflow-x-auto pb-2">
+                    <?php foreach ($images as $index => $image_url): ?>
+                        <img 
+                            src="<?= htmlspecialchars($image_url); ?>" 
+                            alt="Room Thumbnail <?= $index + 1; ?>" 
+                            class="w-24 h-24 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-blue-500 transition-all duration-200"
+                            onclick="changeMainImage(this)"
+                        >
+                    <?php endforeach; ?>
+                </div>
             </div>
 
             <!-- Booking Form -->
@@ -105,6 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     startDateInput.addEventListener('change', calculateTotal);
     endDateInput.addEventListener('change', calculateTotal);
+
+    window.changeMainImage = function(element) {
+        document.getElementById('main-room-image').src = element.src;
+    };
 });
 </script>
 

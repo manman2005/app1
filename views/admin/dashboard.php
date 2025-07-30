@@ -125,7 +125,7 @@
     <?php 
         $room = new Room();
         $stmt_rooms = $room->getAllRooms();
-        $rooms = $stmt_rooms->fetchAll(PDO::FETCH_ASSOC);
+        $rooms = $stmt_rooms;
     ?>
     <?php if (!empty($rooms)): ?>
         <div class="overflow-x-auto">
@@ -151,7 +151,15 @@
                             <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['price_per_night']); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['is_available'] ? 'Yes' : 'No'); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['room_type']); ?></td>
-                            <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white"><?php echo htmlspecialchars($room['image_url']); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-gray-800 dark:text-white">
+                                <?php 
+                                    if (!empty($room['image_url']) && is_array($room['image_url'])) {
+                                        echo '<img src="' . htmlspecialchars($room['image_url'][0]) . '" alt="Room Image" class="w-16 h-16 object-cover rounded-md">';
+                                    } else {
+                                        echo 'No Image';
+                                    }
+                                ?>
+                            </td>
                             <td class="py-3 px-6 whitespace-nowrap text-right">
                                 <a href="/app1/public/admin/editRoom?id=<?= htmlspecialchars($room['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md transition duration-300 mr-2">Edit</a>
                                 <form action="/app1/public/admin/deleteRoom" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this room?');">

@@ -34,7 +34,16 @@
             <?php if (!empty($rooms)): ?>
                 <?php foreach ($rooms as $room): ?>
                     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl animate-fade-in-up">
-                        <img src="<?= htmlspecialchars($room['image_url']); ?>" alt="<?= htmlspecialchars($room['room_number']); ?>" class="w-full h-64 object-cover">
+                        <?php 
+                            $display_image = '';
+                            if (!empty($room['image_url']) && is_array($room['image_url'])) {
+                                $display_image = htmlspecialchars($room['image_url'][0]);
+                            } else {
+                                // Placeholder image if no image is available
+                                $display_image = 'https://via.placeholder.com/600x400?text=No+Image';
+                            }
+                        ?>
+                        <img src="<?= $display_image; ?>" alt="<?= htmlspecialchars($room['room_number']); ?>" class="w-full h-64 object-cover">
                         <div class="p-6">
                             <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-2"><?= htmlspecialchars($room['room_number']); ?></h3>
                             <p class="text-gray-600 dark:text-gray-400 mb-4"><?php echo htmlspecialchars($room['description']); ?></p>

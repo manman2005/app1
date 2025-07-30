@@ -6,7 +6,7 @@ class HomeController {
     public function index() {
         $room = new Room();
         $stmt = $room->getAllRooms();
-        $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rooms = $stmt;
 
         // This will be the main landing page
         include_once __DIR__ . '/../../views/home.php';
