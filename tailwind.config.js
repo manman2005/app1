@@ -5,7 +5,16 @@ module.exports = {
     "./views/**/*.{php,html,js}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'primary-green': '#4CAF50',
+        'secondary-green': '#8BC34A',
+        'earth-brown': '#795548',
+        'light-earth': '#A1887F',
+        'sky-blue': '#87CEEB',
+        'sand-beige': '#F5DEB3',
+      },
+    },
   },
   plugins: [],
 }
