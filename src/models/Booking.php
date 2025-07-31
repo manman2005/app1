@@ -75,4 +75,22 @@ class Booking {
 
         return $row['count'] == 0;
     }
+
+    public static function findByUserId($user_id) {
+        $database = new Database();
+        $conn = $database->getConnection();
+        $table_name = "bookings";
+
+        $query = "SELECT b.*, r.room_number, r.price_per_night
+                  FROM " . $table_name . " b
+                  JOIN rooms r ON b.room_id = r.id
+                  WHERE b.user_id = :user_id
+                  ORDER BY b.check_in_date DESC";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(":user_id", $user_id);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -10,12 +10,14 @@ require_once __DIR__ . '/../partials/header.php';
     <?php if (!empty($bookings)): ?>
         <ul>
             <?php foreach ($bookings as $booking): ?>
-                <li class="mb-2 p-2 border rounded">
-                    <p><strong>Room ID:</strong> <?php echo htmlspecialchars($booking->room_id); ?></p>
-                    <p><strong>Start Date:</strong> <?php echo htmlspecialchars($booking->start_date); ?></p>
-                    <p><strong>End Date:</strong> <?php echo htmlspecialchars($booking->end_date); ?></p>
-                    <p><strong>Status:</strong> <?php echo htmlspecialchars($booking->status); ?></p>
-                </li>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-2">Booking #<?php echo htmlspecialchars($booking['id']); ?></h2>
+                    <p class="text-gray-600">Room Number: <?php echo htmlspecialchars($booking['room_number']); ?></p>
+                    <p class="text-gray-600">Check-in Date: <?php echo htmlspecialchars($booking['check_in_date']); ?></p>
+                    <p class="text-gray-600">Check-out Date: <?php echo htmlspecialchars($booking['check_out_date']); ?></p>
+                    <p class="text-gray-600">Total Price: $<?php echo htmlspecialchars(number_format($booking['total_price'], 2)); ?></p>
+                    <p class="text-gray-700 font-semibold mt-2">Status: <span class="capitalize <?php echo $booking['status'] === 'confirmed' ? 'text-green-600' : 'text-yellow-600'; ?>"><?php echo htmlspecialchars($booking['status']); ?></span></p>
+                </div>
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
