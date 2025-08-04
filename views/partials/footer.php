@@ -1,6 +1,6 @@
     </main>
-    <footer class="bg-gray-800 shadow-md mt-8">
-        <div class="container mx-auto px-6 py-4 text-center text-gray-300">
+    <footer class="bg-light-wood shadow-md mt-8">
+        <div class="container mx-auto px-6 py-4 text-center text-dark-brown">
             <p>&copy; <?php echo date('Y'); ?> HotelSys. All Rights Reserved.</p>
         </div>
     </footer>

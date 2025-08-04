@@ -7,12 +7,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-green': '#4CAF50',
-        'secondary-green': '#8BC34A',
-        'earth-brown': '#795548',
-        'light-earth': '#A1887F',
-        'sky-blue': '#87CEEB',
-        'sand-beige': '#F5DEB3',
+        'primary': '#FFFFFF',
+        'text-main': '#4E342E',
+        'accent': '#4CAF50',
+        'accent-light': '#C8E6C9',
       },
     },
   },
