@@ -11,6 +11,7 @@ module.exports = {
         'text-main': '#4E342E',
         'accent': '#4CAF50',
         'accent-light': '#C8E6C9',
+        'highlight': '#10B981',
       },
     },
   },
