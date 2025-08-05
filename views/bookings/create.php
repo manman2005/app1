@@ -1,15 +1,18 @@
 <?php require_once __DIR__ . '/../partials/header.php'; ?>
 
 <?php if (isset($_SESSION['error_message'])) : ?>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-auto mt-4" role="alert" style="max-width: 600px;">
-        <strong class="font-bold">Error!</strong>
-        <span class="block"><?= htmlspecialchars($_SESSION['error_message']); ?></span>
-        <span class="block">(ห้องพักไม่ว่างสำหรับวันที่เลือก)</span>
-        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" onclick="this.parentNode.parentNode.style.display='none';"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-        </span>
-    </div>
-    <?php unset($_SESSION['error_message']); ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+        icon: 'error',
+        title: 'การจองไม่สำเร็จ',
+        text: 'ห้องพักไม่ว่างสำหรับวันที่คุณเลือก',
+        confirmButtonColor: '#F44336',
+        confirmButtonText: 'ตกลง'
+    });
+});
+</script>
+<?php unset($_SESSION['error_message']); ?>
 <?php endif; ?>
 
 <div class="container mx-auto px-4 py-12">
@@ -45,14 +48,14 @@
             <!-- Booking Form -->
             <div class="p-8 md:p-12 md:w-1/2">
                 <?php if (isset($room)) : ?>
-                    <h1 class="text-3xl md:text-4xl font-bold text-text-main mb-2">Book Your Stay</h1>
-                    <p class="text-text-main mb-6">You are booking Room <?= htmlspecialchars($room->room_number); ?></p>
+                    <h1 class="text-3xl md:text-4xl font-bold text-text-main mb-2">จองห้องพักของคุณ</h1>
+                    <p class="text-text-main mb-6">คุณกำลังจะจองห้อง <?= htmlspecialchars($room->room_number); ?></p>
 
                     <div class="mb-6 pb-6 border-b border-gray-200">
                         <p class="text-lg text-text-main"><?= htmlspecialchars($room->description); ?></p>
                         <div class="mt-4">
                             <span class="text-3xl font-bold text-accent">฿<?= number_format($room->price_per_night); ?></span>
-                            <span class="text-sm text-text-main">/ night</span>
+                            <span class="text-sm text-text-main">/ คืน</span>
                         </div>
                     </div>
 
@@ -60,11 +63,11 @@
                         <input type="hidden" name="room_id" value="<?= $room->id; ?>">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
-                                <label for="start_date" class="block text-sm font-medium text-text-main mb-2">Check-in Date</label>
+                                <label for="start_date" class="block text-sm font-medium text-text-main mb-2">วันที่เช็คอิน</label>
                                 <input type="date" id="start_date" name="start_date" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-text-main focus:ring-accent focus:border-accent transition">
                             </div>
                             <div>
-                                <label for="end_date" class="block text-sm font-medium text-text-main mb-2">Check-out Date</label>
+                                <label for="end_date" class="block text-sm font-medium text-text-main mb-2">วันที่เช็คเอาท์</label>
                                 <input type="date" id="end_date" name="end_date" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-text-main focus:ring-accent focus:border-accent transition">
                             </div>
                         </div>
@@ -72,20 +75,20 @@
                         <!-- Total Price Display -->
                         <div class="mt-6 pt-6 border-t border-gray-200">
                             <div class="flex justify-between items-center">
-                                <span class="text-lg font-medium text-text-main">Total Price:</span>
-                                <span id="total-price" data-price-per-night="<?= htmlspecialchars($room->price_per_night); ?>" class="text-2xl font-bold text-accent">Select dates</span>
+                                <span class="text-lg font-medium text-text-main">ราคารวม:</span>
+                                <span id="total-price" data-price-per-night="<?= htmlspecialchars($room->price_per_night); ?>" class="text-2xl font-bold text-accent">เลือกวันที่</span>
                             </div>
                         </div>
 
                         <button type="submit" class="w-full mt-8 bg-accent hover:bg-opacity-80 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
-                            Confirm Booking
+                            ยืนยันการจอง
                         </button>
                     </form>
                 <?php else : ?>
                     <div class="text-center py-20">
-                        <h2 class="text-2xl font-semibold text-text-main">Room Not Found</h2>
-                        <p class="text-text-main mt-2">We couldn't find the room you were looking for.</p>
-                        <a href="/app1/public/home" class="mt-6 inline-block bg-accent text-white px-6 py-2 rounded-lg hover:bg-opacity-80 transition">Back to Home</a>
+                        <h2 class="text-2xl font-semibold text-text-main">ไม่พบห้องพัก</h2>
+                        <p class="text-text-main mt-2">เราไม่พบห้องพักที่คุณกำลังมองหา</p>
+                        <a href="/app1/public/home" class="mt-6 inline-block bg-accent text-white px-6 py-2 rounded-lg hover:bg-opacity-80 transition">กลับสู่หน้าหลัก</a>
                     </div>
                 <?php endif; ?>
             </div>
@@ -99,6 +102,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const endDateInput = document.getElementById('end_date');
     const totalPriceElement = document.getElementById('total-price');
     const pricePerNight = parseFloat(totalPriceElement.dataset.pricePerNight);
+    const bookingForm = document.querySelector('form');
+
+    bookingForm.addEventListener('submit', function(e) {
+        if (!startDateInput.value || !endDateInput.value) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'warning',
+                title: 'ข้อมูลไม่ครบถ้วน',
+                text: 'กรุณาเลือกวันที่เช็คอินและเช็คเอาท์ก่อนดำเนินการต่อ',
+                confirmButtonColor: '#4F46E5',
+                confirmButtonText: 'รับทราบ'
+            });
+        }
+    });
 
     function calculateTotal() {
         const startDate = new Date(startDateInput.value);
@@ -112,10 +129,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const total = dayDiff * pricePerNight;
                 totalPriceElement.textContent = `฿${total.toLocaleString('en-US')}`;
             } else {
-                totalPriceElement.textContent = 'Invalid date range';
+                totalPriceElement.textContent = 'ช่วงวันที่ไม่ถูกต้อง';
             }
         } else {
-            totalPriceElement.textContent = 'Select dates';
+            totalPriceElement.textContent = 'เลือกวันที่';
         }
     }
 

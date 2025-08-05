@@ -6,6 +6,7 @@
     <title>Hotel Booking</title>
     <link href="/app1/public/css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="bg-primary text-text-main font-body">
     <nav class="bg-white shadow-lg sticky top-0 z-50">
