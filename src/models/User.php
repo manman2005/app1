@@ -78,12 +78,72 @@ class User {
         return false;
     }
 
-    // Get all users
-    public function getAllUsers() {
-        $query = "SELECT id, username, email, role FROM " . $this->table_name . " ORDER BY username ASC";
+    // Get all users with search, filter, and pagination
+    public function getAllUsers($search_term = '', $role_filter = '', $limit = 10, $offset = 0) {
+        $query = "SELECT id, username, email, role FROM " . $this->table_name;
+        $conditions = [];
+        $params = [];
+
+        if (!empty($search_term)) {
+            $conditions[] = "(username LIKE :search_username OR email LIKE :search_email)";
+            $params[':search_username'] = '%' . $search_term . '%';
+            $params[':search_email'] = '%' . $search_term . '%';
+        }
+
+        if (!empty($role_filter)) {
+            $conditions[] = "role = :role_filter";
+            $params[':role_filter'] = $role_filter;
+        }
+
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        $query .= " ORDER BY username ASC LIMIT :limit OFFSET :offset";
+
         $stmt = $this->conn->prepare($query);
+
+        foreach ($params as $key => &$val) {
+            $stmt->bindParam($key, $val);
+        }
+
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
         $stmt->execute();
         return $stmt;
+    }
+
+    // Get total number of users with search and filter
+    public function getTotalUsers($search_term = '', $role_filter = '') {
+        $query = "SELECT COUNT(*) as total FROM " . $this->table_name;
+        $conditions = [];
+        $params = [];
+
+        if (!empty($search_term)) {
+            $conditions[] = "(username LIKE :search_username OR email LIKE :search_email)";
+            $params[':search_username'] = '%' . $search_term . '%';
+            $params[':search_email'] = '%' . $search_term . '%';
+        }
+
+        if (!empty($role_filter)) {
+            $conditions[] = "role = :role_filter";
+            $params[':role_filter'] = $role_filter;
+        }
+
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        $stmt = $this->conn->prepare($query);
+
+        foreach ($params as $key => &$val) {
+            $stmt->bindParam($key, $val);
+        }
+
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total'];
     }
 
     // Update a user

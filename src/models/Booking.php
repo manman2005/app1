@@ -48,13 +48,59 @@ class Booking {
         return false;
     }
 
-    public function getAllBookings() {
-        $query = "SELECT b.id, u.username, r.room_number, b.check_in_date, b.check_out_date, b.total_price, b.status, b.created_at FROM " . $this->table_name . " b LEFT JOIN users u ON b.user_id = u.id LEFT JOIN rooms r ON b.room_id = r.id ORDER BY b.created_at DESC";
-        
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+    public function getAllBookings($search_term = '', $status_filter = '', $limit = 10, $offset = 0) {
+        $query = "SELECT b.id, u.username, r.room_number, b.check_in_date, b.check_out_date, b.total_price, b.status, b.created_at FROM " . $this->table_name . " b LEFT JOIN users u ON b.user_id = u.id LEFT JOIN rooms r ON b.room_id = r.id";
+        $conditions = [];
+        $params = [];
 
+        if (!empty($search_term)) {
+            $conditions[] = "(u.username LIKE ? OR r.room_number LIKE ?)";
+            $params[] = '%' . $search_term . '%';
+            $params[] = '%' . $search_term . '%';
+        }
+
+        if (!empty($status_filter)) {
+            $conditions[] = "b.status = ?";
+            $params[] = $status_filter;
+        }
+
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        $query .= " ORDER BY b.created_at DESC LIMIT " . (int)$limit . " OFFSET " . (int)$offset;
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute($params);
         return $stmt;
+    }
+
+    public function getTotalBookings($search_term = '', $status_filter = '') {
+        $query = "SELECT COUNT(*) as total FROM " . $this->table_name . " b LEFT JOIN users u ON b.user_id = u.id LEFT JOIN rooms r ON b.room_id = r.id";
+        $conditions = [];
+        $params = [];
+
+        if (!empty($search_term)) {
+            $conditions[] = "(u.username LIKE ? OR r.room_number LIKE ?)";
+            $params[] = '%' . $search_term . '%';
+            $params[] = '%' . $search_term . '%';
+        }
+
+        if (!empty($status_filter)) {
+            $conditions[] = "b.status = ?";
+            $params[] = $status_filter;
+        }
+
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute($params);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total'];
     }
 
     public function isRoomAvailable($room_id, $check_in_date, $check_out_date) {

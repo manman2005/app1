@@ -11,13 +11,45 @@ class AdminController {
             exit();
         }
 
-        $user = new User();
-        $stmt = $user->getAllUsers();
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $records_per_page = 10;
 
+        // User Management Data
+        $user = new User();
+        $user_search_term = isset($_GET['user_search']) ? $_GET['user_search'] : '';
+        $user_role_filter = isset($_GET['user_role']) ? $_GET['user_role'] : '';
+        $user_current_page = isset($_GET['user_page']) ? (int)$_GET['user_page'] : 1;
+        $user_offset = ($user_current_page - 1) * $records_per_page;
+
+        $users_stmt = $user->getAllUsers($user_search_term, $user_role_filter, $records_per_page, $user_offset);
+        $users = $users_stmt->fetchAll(PDO::FETCH_ASSOC);
+        $user_total_rows = $user->getTotalUsers($user_search_term, $user_role_filter);
+        $user_total_pages = ceil($user_total_rows / $records_per_page);
+
+        // Booking Management Data
         $booking = new Booking();
-        $stmt = $booking->getAllBookings();
-        $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $booking_search_term = isset($_GET['booking_search']) ? $_GET['booking_search'] : '';
+        $booking_status_filter = isset($_GET['booking_status']) ? $_GET['booking_status'] : '';
+        $booking_current_page = isset($_GET['booking_page']) ? (int)$_GET['booking_page'] : 1;
+        $booking_offset = ($booking_current_page - 1) * $records_per_page;
+
+        $bookings_stmt = $booking->getAllBookings($booking_search_term, $booking_status_filter, $records_per_page, $booking_offset);
+        $bookings = $bookings_stmt->fetchAll(PDO::FETCH_ASSOC);
+        $booking_total_rows = $booking->getTotalBookings($booking_search_term, $booking_status_filter);
+        $new_bookings_count = $booking->getTotalBookings('', 'pending');
+        $new_bookings_count = $booking->getTotalBookings('', 'pending');
+        $booking_total_pages = ceil($booking_total_rows / $records_per_page);
+
+        // Room Management Data
+        $room = new Room();
+        $room_search_term = isset($_GET['room_search']) ? $_GET['room_search'] : '';
+        $room_type_filter = isset($_GET['room_type']) ? $_GET['room_type'] : '';
+        $room_availability_filter = isset($_GET['room_availability']) ? $_GET['room_availability'] : '';
+        $room_current_page = isset($_GET['room_page']) ? (int)$_GET['room_page'] : 1;
+        $room_offset = ($room_current_page - 1) * $records_per_page;
+
+        $rooms = $room->getAllRooms($room_search_term, $room_type_filter, $room_availability_filter, $records_per_page, $room_offset);
+        $room_total_rows = $room->getTotalRooms($room_search_term, $room_type_filter, $room_availability_filter);
+        $room_total_pages = ceil($room_total_rows / $records_per_page);
 
         include_once __DIR__ . '/../../views/admin/dashboard.php';
     }

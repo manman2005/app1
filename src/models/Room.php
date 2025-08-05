@@ -19,17 +19,79 @@ class Room {
         $this->conn = $database->getConnection();
     }
 
-    // Get all rooms
-    public function getAllRooms() {
-        $query = "SELECT id, room_number, description, price_per_night, is_available, room_type, image_url FROM " . $this->table_name . " ORDER BY room_number ASC";
+    // Get all rooms with search, filter, and pagination
+    public function getAllRooms($search_term = '', $room_type_filter = '', $availability_filter = '', $limit = 10, $offset = 0) {
+        $query = "SELECT id, room_number, description, price_per_night, is_available, room_type, image_url FROM " . $this->table_name;
+        $conditions = [];
+        $params = [];
+
+        if (!empty($search_term)) {
+            $conditions[] = "(room_number LIKE :search_term_room_number OR description LIKE :search_term_description)";
+            $params[':search_term_room_number'] = '%' . $search_term . '%';
+            $params[':search_term_description'] = '%' . $search_term . '%';
+        }
+
+        if (!empty($room_type_filter)) {
+            $conditions[] = "room_type = :room_type_filter";
+            $params[':room_type_filter'] = $room_type_filter;
+        }
+
+        if ($availability_filter !== '') {
+            $conditions[] = "is_available = :is_available";
+            $params[':is_available'] = (int)$availability_filter;
+        }
+
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        $query .= " ORDER BY room_number ASC LIMIT :limit OFFSET :offset";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+
+        $all_params = $params;
+        $all_params[':limit'] = (int)$limit;
+        $all_params[':offset'] = (int)$offset;
+
+        $stmt->execute($all_params);
 
         $rooms_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($rooms_data as &$room) {
             $room['image_url'] = json_decode($room['image_url'], true) ?: [];
         }
-        return $rooms_data; // Return array of associative arrays
+        return $rooms_data;
+    }
+
+    // Get total number of rooms with search and filter
+    public function getTotalRooms($search_term = '', $room_type_filter = '', $availability_filter = '') {
+        $query = "SELECT COUNT(*) as total FROM " . $this->table_name;
+        $conditions = [];
+        $params = [];
+
+        if (!empty($search_term)) {
+            $conditions[] = "(room_number LIKE :search_term_room_number OR description LIKE :search_term_description)";
+            $params[':search_term_room_number'] = '%' . $search_term . '%';
+            $params[':search_term_description'] = '%' . $search_term . '%';
+        }
+
+        if (!empty($room_type_filter)) {
+            $conditions[] = "room_type = :room_type_filter";
+            $params[':room_type_filter'] = $room_type_filter;
+        }
+
+        if ($availability_filter !== '') {
+            $conditions[] = "is_available = :is_available";
+            $params[':is_available'] = (int)$availability_filter;
+        }
+
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute($params);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total'];
     }
 
     // Create a new room
