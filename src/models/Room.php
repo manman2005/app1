@@ -209,21 +209,30 @@ class Room {
 
     // Delete a room
     public function delete() {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+        $this->conn->beginTransaction();
 
-        $stmt = $this->conn->prepare($query);
+        try {
+            // Sanitize input
+            $this->id = htmlspecialchars(strip_tags($this->id));
 
-        // Sanitize input
-        $this->id = htmlspecialchars(strip_tags($this->id));
+            // First, delete associated bookings
+            $booking_query = "DELETE FROM bookings WHERE room_id = :id";
+            $booking_stmt = $this->conn->prepare($booking_query);
+            $booking_stmt->bindParam(':id', $this->id);
+            $booking_stmt->execute();
 
-        // Bind the value
-        $stmt->bindParam(':id', $this->id);
+            // Then, delete the room
+            $room_query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+            $room_stmt = $this->conn->prepare($room_query);
+            $room_stmt->bindParam(':id', $this->id);
+            $room_stmt->execute();
 
-        if ($stmt->execute()) {
+            $this->conn->commit();
             return true;
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+            return false;
         }
-
-        return false;
     }
 
     // Delete image by index

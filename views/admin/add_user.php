@@ -1,4 +1,5 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
+<?php include __DIR__ . '/../partials/admin_navbar.php'; ?>
 
 <div class="container mx-auto px-6 py-8">
     <h1 class="text-4xl font-bold text-text-main mb-8 text-center">เพิ่มผู้ใช้ใหม่</h1>
@@ -49,6 +50,7 @@
 </div>
 
 <?php if (isset($_SESSION['message']) || isset($_SESSION['error'])): ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     <?php if (isset($_SESSION['message'])): ?>

@@ -186,21 +186,30 @@ class User {
 
     // Delete a user
     public function delete() {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+        $this->conn->beginTransaction();
 
-        $stmt = $this->conn->prepare($query);
+        try {
+            // Sanitize input
+            $this->id = htmlspecialchars(strip_tags($this->id));
 
-        // Sanitize input
-        $this->id = htmlspecialchars(strip_tags($this->id));
+            // Delete user's bookings
+            $booking_query = "DELETE FROM bookings WHERE user_id = :id";
+            $booking_stmt = $this->conn->prepare($booking_query);
+            $booking_stmt->bindParam(':id', $this->id);
+            $booking_stmt->execute();
 
-        // Bind the value
-        $stmt->bindParam(':id', $this->id);
+            // Delete user
+            $user_query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+            $user_stmt = $this->conn->prepare($user_query);
+            $user_stmt->bindParam(':id', $this->id);
+            $user_stmt->execute();
 
-        if ($stmt->execute()) {
+            $this->conn->commit();
             return true;
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+            return false;
         }
-
-        return false;
     }
 }
 ?>

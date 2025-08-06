@@ -1,20 +1,32 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
+<?php include __DIR__ . '/../partials/admin_navbar.php'; ?>
 
 <div class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4">Edit User</h1>
 
-    <?php if (isset($_SESSION['message'])): ?>
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <span class="block sm:inline"><?= $_SESSION['message']; ?></span>
-            <?php unset($_SESSION['message']); ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if (isset($_SESSION['error'])): ?>
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <span class="block sm:inline"><?= $_SESSION['error']; ?></span>
-            <?php unset($_SESSION['error']); ?>
-        </div>
+    <?php if (isset($_SESSION['message']) || isset($_SESSION['error'])): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if (isset($_SESSION['message'])): ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'สำเร็จ!',
+            text: '<?= addslashes(htmlspecialchars($_SESSION['message'])); ?>',
+            confirmButtonText: 'ตกลง'
+        });
+        <?php unset($_SESSION['message']); ?>
+        <?php elseif (isset($_SESSION['error'])): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด',
+            text: '<?= addslashes(htmlspecialchars($_SESSION['error'])); ?>',
+            confirmButtonText: 'ตกลง'
+        });
+        <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+    });
+    </script>
     <?php endif; ?>
 
     <form action="/app1/public/admin/editUser" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
