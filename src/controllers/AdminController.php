@@ -67,6 +67,9 @@ class AdminController {
             $user->username = $_POST['username'];
             $user->email = $_POST['email'];
             $user->role = $_POST['role'];
+            if (!empty($_POST['password'])) {
+                $user->password = $_POST['password'];
+            }
 
             if ($user->update()) {
                 $_SESSION['message'] = 'User updated successfully.';
@@ -204,20 +207,23 @@ class AdminController {
             $room->is_available = isset($_POST['is_available']) ? 1 : 0;
             $room->room_type = $_POST['room_type'];
 
+            // To avoid overwriting the new POST data, create a temporary room object 
+            // just to fetch the existing image URLs from the database.
+            $tempRoom = new Room();
+            $existing_room_data = $tempRoom->getById($room->id);
             $image_urls = [];
-            // Get existing image URLs
-            $existing_room_data = $room->getById($room->id);
             if ($existing_room_data && is_array($existing_room_data->image_url)) {
                 $image_urls = $existing_room_data->image_url;
             }
 
             // Check if new images are uploaded
-            if (isset($_FILES['image']) && is_array($_FILES['image']['name'])) {
+            if (isset($_FILES['image']) && is_array($_FILES['image']['name']) && !empty(array_filter($_FILES['image']['name']))) {
                 $upload_dir = __DIR__ . '/../../public/uploads/rooms/';
                 if (!is_dir($upload_dir)) {
                     mkdir($upload_dir, 0777, true);
                 }
 
+                $new_image_urls = [];
                 foreach ($_FILES['image']['name'] as $key => $name) {
                     if ($_FILES['image']['error'][$key] === UPLOAD_ERR_OK) {
                         $file_ext = pathinfo($name, PATHINFO_EXTENSION);
@@ -225,7 +231,7 @@ class AdminController {
                         $target_file = $upload_dir . $new_file_name;
 
                         if (move_uploaded_file($_FILES['image']['tmp_name'][$key], $target_file)) {
-                            $image_urls[] = '/app1/public/uploads/rooms/' . $new_file_name;
+                            $new_image_urls[] = '/app1/public/uploads/rooms/' . $new_file_name;
                         } else {
                             $_SESSION['error'] = 'Failed to upload some new images.';
                             header('Location: /app1/public/admin/editRoom?id=' . $room->id);
@@ -233,7 +239,11 @@ class AdminController {
                         }
                     }
                 }
+                // Add the new images to the existing ones
+                $image_urls = array_merge($image_urls, $new_image_urls);
             }
+            
+            // Now, assign the final, correct list of images to the main $room object
             $room->image_url = $image_urls;
 
             if ($room->update()) {

@@ -195,6 +195,12 @@ class Room {
         $stmt->bindParam(':id', $this->id);
 
         if ($stmt->execute()) {
+            if ($stmt->rowCount() > 0) {
+                return true; // Update was successful
+            }
+            // If rowCount is 0, it means no rows were affected.
+            // This can happen if the data submitted is the same as the data in the DB.
+            // We can consider this a "successful" case in the controller.
             return true;
         }
 

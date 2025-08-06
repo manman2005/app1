@@ -148,7 +148,14 @@ class User {
 
     // Update a user
     public function update() {
-        $query = "UPDATE " . $this->table_name . " SET username = :username, email = :email, role = :role WHERE id = :id";
+        $query = "UPDATE " . $this->table_name . " SET username = :username, email = :email, role = :role";
+
+        // Check if a new password is provided
+        if (!empty($this->password)) {
+            $query .= ", password = :password";
+        }
+
+        $query .= " WHERE id = :id";
 
         $stmt = $this->conn->prepare($query);
 
@@ -163,6 +170,12 @@ class User {
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':role', $this->role);
         $stmt->bindParam(':id', $this->id);
+
+        // Bind password if it's being updated
+        if (!empty($this->password)) {
+            $this->password = password_hash($this->password, PASSWORD_BCRYPT);
+            $stmt->bindParam(':password', $this->password);
+        }
 
         if ($stmt->execute()) {
             return true;

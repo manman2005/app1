@@ -1,5 +1,4 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<?php include __DIR__ . '/../partials/admin_navbar.php'; ?>
 
 <div class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4">Edit User</h1>
@@ -33,6 +32,13 @@
                 Email:
             </label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="email" value="<?= htmlspecialchars($userData['email']); ?>" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                New Password (leave blank to keep current password):
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password">
         </div>
 
         <div class="mb-6">
