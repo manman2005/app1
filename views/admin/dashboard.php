@@ -165,6 +165,7 @@
                 </form>
 
             <?php if (!empty($bookings)):
+                $thai_months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
             ?>
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white rounded-lg overflow-hidden shadow-md">
@@ -178,6 +179,7 @@
                                 <th class="py-3 px-6 text-left text-xs font-semibold text-text-main uppercase tracking-wider">Total Price</th>
                                 <th class="py-3 px-6 text-left text-xs font-semibold text-text-main uppercase tracking-wider">Status</th>
                                 <th class="py-3 px-6 text-left text-xs font-semibold text-text-main uppercase tracking-wider">Date</th>
+                                <th class="py-3 px-6"></th>
                             </tr>
                         </thead>
                 <tbody>
@@ -187,15 +189,27 @@
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= htmlspecialchars($booking['id']); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= htmlspecialchars($booking['username']); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= htmlspecialchars($booking['room_number']); ?></td>
-                            <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= htmlspecialchars(date('d M Y', strtotime($booking['check_in_date']))); ?></td>
-                            <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= htmlspecialchars(date('d M Y', strtotime($booking['check_out_date']))); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= date('d', strtotime($booking['check_in_date'])) . ' ' . $thai_months[date('m', strtotime($booking['check_in_date'])) - 1] . ' ' . (date('Y', strtotime($booking['check_in_date'])) + 543); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= date('d', strtotime($booking['check_out_date'])) . ' ' . $thai_months[date('m', strtotime($booking['check_out_date'])) - 1] . ' ' . (date('Y', strtotime($booking['check_out_date'])) + 543); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-text-main">฿<?= number_format($booking['total_price'], 2); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <?= $booking['status'] == 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'; ?>">
                                     <?= htmlspecialchars($booking['status']); ?>
                                 </span>
                             </td>
-                            <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= htmlspecialchars(date('d M Y, H:i', strtotime($booking['created_at']))); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= date('d', strtotime($booking['created_at'])) . ' ' . $thai_months[date('m', strtotime($booking['created_at'])) - 1] . ' ' . (date('Y', strtotime($booking['created_at'])) + 543) . ', ' . date('H:i', strtotime($booking['created_at'])); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-right">
+                                    <?php if ($booking['status'] == 'pending'): ?>
+                                        <form action="/app1/public/admin/approveBooking" method="POST" class="inline-block mr-2">
+                                            <input type="hidden" name="booking_id" value="<?= htmlspecialchars($booking['id']); ?>">
+                                            <button type="submit" class="bg-accent hover:bg-opacity-80 text-white text-sm py-1 px-3 rounded-md transition duration-300">อนุมัติ</button>
+                                        </form>
+                                        <form action="/app1/public/admin/rejectBooking" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to reject this booking?');">
+                                            <input type="hidden" name="booking_id" value="<?= htmlspecialchars($booking['id']); ?>">
+                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded-md transition duration-300">ปฏิเสธ</button>
+                                        </form>
+                                    <?php endif; ?>
+                                </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

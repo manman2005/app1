@@ -56,7 +56,7 @@ class BookingController {
         $booking->check_in_date = $start_date;
         $booking->check_out_date = $end_date;
         $booking->total_price = $total_price;
-        $booking->status = 'confirmed'; // Or 'pending' if you have an approval process
+        $booking->status = 'pending'; // Or 'pending' if you have an approval process
 
         // Check for room availability
         if (!$booking->isRoomAvailable($room_id, $start_date, $end_date)) {

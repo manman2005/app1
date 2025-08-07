@@ -4,10 +4,10 @@
     <div class="bg-white dark:bg-gray-800 max-w-lg mx-auto p-8 md:p-12 rounded-2xl shadow-2xl animate-fade-in-down">
         <svg class="h-20 w-20 mx-auto text-green-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">Booking Successful!</h1>
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">Booking Submitted!</h1>
         
         <p class="text-gray-600 dark:text-gray-400 mb-8">
-            Thank you for your booking. Your reservation has been confirmed.
+            Thank you for your booking. Your reservation is pending approval.
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 text-left space-y-4 mb-8">

@@ -87,6 +87,14 @@ switch ($path) {
         $adminController->deleteRoomImage();
         break;
 
+    case '/admin/approveBooking':
+        $adminController->approveBooking();
+        break;
+
+    case '/admin/rejectBooking':
+        $adminController->rejectBooking();
+        break;
+
     default:
         http_response_code(404);
         include __DIR__ . '/../views/404.php';

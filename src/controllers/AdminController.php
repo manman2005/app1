@@ -319,5 +319,41 @@ class AdminController {
         }
         exit();
     }
+
+    public function approveBooking() {
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+            header('Location: /app1/public/auth/login');
+            exit();
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['booking_id'])) {
+            $booking = new Booking();
+            if ($booking->updateStatus($_POST['booking_id'], 'confirmed')) {
+                $_SESSION['message'] = 'Booking approved successfully.';
+            } else {
+                $_SESSION['error'] = 'Failed to approve booking.';
+            }
+        }
+        header('Location: /app1/public/admin/dashboard');
+        exit();
+    }
+
+    public function rejectBooking() {
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+            header('Location: /app1/public/auth/login');
+            exit();
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['booking_id'])) {
+            $booking = new Booking();
+            if ($booking->updateStatus($_POST['booking_id'], 'cancelled')) {
+                $_SESSION['message'] = 'Booking rejected successfully.';
+            } else {
+                $_SESSION['error'] = 'Failed to reject booking.';
+            }
+        }
+        header('Location: /app1/public/admin/dashboard');
+        exit();
+    }
 }
 ?>

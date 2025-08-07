@@ -139,4 +139,24 @@ class Booking {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function updateStatus($id, $status) {
+        $query = "UPDATE " . $this->table_name . " SET status = :status WHERE id = :id";
+
+        $stmt = $this->conn->prepare($query);
+
+        // Sanitize
+        $id = htmlspecialchars(strip_tags($id));
+        $status = htmlspecialchars(strip_tags($status));
+
+        // Bind
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':status', $status);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
 }
