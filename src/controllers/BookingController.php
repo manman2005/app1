@@ -4,13 +4,20 @@ require_once __DIR__ . '/../models/Room.php';
 
 class BookingController {
     public function create() {
-        // Display the booking form
-        // This would typically involve getting room details
         if (isset($_GET['room_id'])) {
-            $room = new Room();
-            $room = $room->getById($_GET['room_id']);
-            // Pass the $room object to the view
-            require __DIR__ . '/../../views/bookings/create.php';
+            $room_model = new Room();
+            $room = $room_model->getById($_GET['room_id']);
+
+            if ($room) {
+                $booking_model = new Booking();
+                $unavailable_dates = $booking_model->getConfirmedBookingsForRoom($room->id);
+                
+                require __DIR__ . '/../../views/bookings/create.php';
+            } else {
+                // Handle room not found
+                http_response_code(404);
+                require __DIR__ . '/../../views/404.php';
+            }
         } else {
             // Handle error: room_id not provided
             echo "Room not specified.";

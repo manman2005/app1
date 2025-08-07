@@ -159,4 +159,12 @@ class Booking {
 
         return false;
     }
+
+    public function getConfirmedBookingsForRoom($room_id) {
+        $query = "SELECT check_in_date, check_out_date FROM " . $this->table_name . " WHERE room_id = :room_id AND status = 'confirmed'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":room_id", $room_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
