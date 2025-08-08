@@ -48,6 +48,11 @@ class Booking {
         return false;
     }
 
+    public function getLastInsertId()
+    {
+        return $this->conn->lastInsertId();
+    }
+
     public function getAllBookings($search_term = '', $status_filter = '', $limit = 10, $offset = 0) {
         $query = "SELECT b.id, u.username, r.room_number, b.check_in_date, b.check_out_date, b.total_price, b.status, b.created_at FROM " . $this->table_name . " b LEFT JOIN users u ON b.user_id = u.id LEFT JOIN rooms r ON b.room_id = r.id";
         $conditions = [];

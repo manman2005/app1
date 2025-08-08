@@ -126,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <script>
-<script>
 const unavailableDates = <?= json_encode($unavailable_dates ?? []) ?>.map(booking => ({
     start: new Date(booking.check_in_date),
     end: new Date(booking.check_out_date)

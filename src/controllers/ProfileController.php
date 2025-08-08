@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../models/Booking.php';
+require_once __DIR__ . '/../models/Room.php';
 
 class ProfileController {
     public function showProfile() {

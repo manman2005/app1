@@ -3,25 +3,32 @@ require_once __DIR__ . '/../models/Booking.php';
 require_once __DIR__ . '/../models/Room.php';
 
 class BookingController {
-    public function create() {
-        if (isset($_GET['room_id'])) {
-            $room_model = new Room();
-            $room = $room_model->getById($_GET['room_id']);
-
-            if ($room) {
-                $booking_model = new Booking();
-                $unavailable_dates = $booking_model->getConfirmedBookingsForRoom($room->id);
-                
-                require __DIR__ . '/../../views/bookings/create.php';
-            } else {
-                // Handle room not found
-                http_response_code(404);
-                require __DIR__ . '/../../views/404.php';
-            }
-        } else {
-            // Handle error: room_id not provided
-            echo "Room not specified.";
+    public function create()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
+
+        if (!isset($_GET['room_id']) || empty($_GET['room_id'])) {
+            $_SESSION['error_message'] = "No room was selected. Please choose a room to book.";
+            header('Location: /');
+            exit;
+        }
+
+        $roomInstance = new Room();
+        $room = $roomInstance->getById($_GET['room_id']);
+
+        if (!$room) {
+            $_SESSION['error_message'] = "The selected room could not be found or is unavailable.";
+            header('Location: /');
+            exit;
+        }
+
+        $bookingInstance = new Booking();
+        $unavailable_dates = $bookingInstance->getConfirmedBookingsForRoom($room->id);
+
+        // If we get here, $room is valid, so we can load the view.
+        require_once __DIR__ . '/../../views/bookings/create.php';
     }
 
     public function store() {
@@ -73,11 +80,16 @@ class BookingController {
         }
 
         if ($booking->create()) {
-            // Load the success view
+            // Booking was successful, get the new booking's ID
+            $booking_id = $booking->getLastInsertId();
+            // You might want to fetch the full booking details to pass to the success page
+            // For now, we'll just load the success view.
             require __DIR__ . '/../../views/bookings/success.php';
+            exit(); // Stop script execution after loading the view
         } else {
-            // Handle booking creation failure
-            echo "Failed to create booking.";
+            $_SESSION['error_message'] = 'เกิดข้อผิดพลาดในการสร้างการจอง โปรดลองอีกครั้ง';
+            header('Location: /app1/public/book?room_id=' . $room_id);
+            exit();
         }
     }
 
