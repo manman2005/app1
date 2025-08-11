@@ -55,7 +55,7 @@ class User {
 
     // Get user by ID
     public function getById($id) {
-        $query = "SELECT id, username, email, role FROM " . $this->table_name . " WHERE id = :id LIMIT 0,1";
+        $query = "SELECT id, username, email, role, created_at FROM " . $this->table_name . " WHERE id = :id LIMIT 0,1";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
