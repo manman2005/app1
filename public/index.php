@@ -45,6 +45,15 @@ switch ($path) {
     case '/user/profile':
         $profileController->showProfile();
         break;
+    case '/user/profile/update':
+        $profileController->updateProfile();
+        break;
+    case '/user/profile/change_password':
+        $profileController->changePassword();
+        break;
+    case '/user/profile/upload_picture':
+        $profileController->uploadProfilePicture();
+        break;
     case '/user/bookings':
         $profileController->showBookingHistory();
         break;

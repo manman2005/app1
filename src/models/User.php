@@ -9,6 +9,8 @@ class User {
     public $id;
     public $username;
     public $email;
+    public $phone_number;
+    public $profile_picture;
     public $password;
     public $role;
 
@@ -55,7 +57,7 @@ class User {
 
     // Get user by ID
     public function getById($id) {
-        $query = "SELECT id, username, email, role, created_at FROM " . $this->table_name . " WHERE id = :id LIMIT 0,1";
+        $query = "SELECT id, username, email, phone_number, profile_picture, role, created_at FROM " . $this->table_name . " WHERE id = :id LIMIT 0,1";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
@@ -80,7 +82,7 @@ class User {
 
     // Get all users with search, filter, and pagination
     public function getAllUsers($search_term = '', $role_filter = '', $limit = 10, $offset = 0) {
-        $query = "SELECT id, username, email, role FROM " . $this->table_name;
+        $query = "SELECT id, username, email, phone_number, role FROM " . $this->table_name;
         $conditions = [];
         $params = [];
 
@@ -148,33 +150,47 @@ class User {
 
     // Update a user
     public function update() {
-        $query = "UPDATE " . $this->table_name . " SET username = :username, email = :email, role = :role";
+        $query = "UPDATE " . $this->table_name . " SET";
+        $params = [];
+        $updates = [];
 
-        // Check if a new password is provided
+        if (!empty($this->username)) {
+            $updates[] = "username = :username";
+            $params[':username'] = htmlspecialchars(strip_tags($this->username));
+        }
+        if (!empty($this->email)) {
+            $updates[] = "email = :email";
+            $params[':email'] = htmlspecialchars(strip_tags($this->email));
+        }
+        if (isset($this->phone_number)) { // Use isset to allow empty string
+            $updates[] = "phone_number = :phone_number";
+            $params[':phone_number'] = htmlspecialchars(strip_tags($this->phone_number));
+        }
+        if (!empty($this->role)) {
+            $updates[] = "role = :role";
+            $params[':role'] = htmlspecialchars(strip_tags($this->role));
+        }
+        if (isset($this->profile_picture)) {
+            $updates[] = "profile_picture = :profile_picture";
+            $params[':profile_picture'] = htmlspecialchars(strip_tags($this->profile_picture));
+        }
         if (!empty($this->password)) {
-            $query .= ", password = :password";
+            $updates[] = "password = :password";
+            $params[':password'] = password_hash($this->password, PASSWORD_BCRYPT);
         }
 
+        if (empty($updates)) {
+            return true; // Nothing to update
+        }
+
+        $query .= " " . implode(", ", $updates);
         $query .= " WHERE id = :id";
+        $params[':id'] = htmlspecialchars(strip_tags($this->id));
 
         $stmt = $this->conn->prepare($query);
 
-        // Sanitize input
-        $this->username = htmlspecialchars(strip_tags($this->username));
-        $this->email = htmlspecialchars(strip_tags($this->email));
-        $this->role = htmlspecialchars(strip_tags($this->role));
-        $this->id = htmlspecialchars(strip_tags($this->id));
-
-        // Bind the values
-        $stmt->bindParam(':username', $this->username);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':role', $this->role);
-        $stmt->bindParam(':id', $this->id);
-
-        // Bind password if it's being updated
-        if (!empty($this->password)) {
-            $this->password = password_hash($this->password, PASSWORD_BCRYPT);
-            $stmt->bindParam(':password', $this->password);
+        foreach ($params as $key => &$val) {
+            $stmt->bindParam($key, $val);
         }
 
         if ($stmt->execute()) {

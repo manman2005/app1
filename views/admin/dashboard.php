@@ -82,6 +82,7 @@
                                 <th class="py-3 px-6 text-left text-xs font-semibold text-text-main uppercase tracking-wider">ID</th>
                                 <th class="py-3 px-6 text-left text-xs font-semibold text-text-main uppercase tracking-wider">Username</th>
                                 <th class="py-3 px-6 text-left text-xs font-semibold text-text-main uppercase tracking-wider">Email</th>
+                                <th class="py-3 px-6 text-left text-xs font-semibold text-text-main uppercase tracking-wider">Phone Number</th>
                                 <th class="py-3 px-6 text-left text-xs font-semibold text-text-main uppercase tracking-wider">Role</th>
                                 <th class="py-3 px-6"></th>
                             </tr>
@@ -93,6 +94,7 @@
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?php echo htmlspecialchars($user['id']); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?php echo htmlspecialchars($user['username']); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?php echo htmlspecialchars($user['email']); ?></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-text-main"><?php echo htmlspecialchars($user['phone_number'] ?? 'N/A'); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?php echo htmlspecialchars($user['role']); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-right">
                                 <a href="/app1/public/admin/editUser?id=<?= htmlspecialchars($user['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md transition duration-300 mr-2">Edit</a>
