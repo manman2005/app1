@@ -18,6 +18,7 @@ class AuthController {
 
             $user->username = $_POST['username'];
             $user->email = $_POST['email'];
+            $user->phone_number = $_POST['phone_number'];
             $user->password = $_POST['password'];
 
             if ($user->create()) {

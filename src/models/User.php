@@ -21,13 +21,14 @@ class User {
 
     // Create a new user
     public function create() {
-        $query = "INSERT INTO " . $this->table_name . " SET username = :username, email = :email, password = :password";
+        $query = "INSERT INTO " . $this->table_name . " SET username = :username, email = :email, password = :password, phone_number = :phone_number";
         
         $stmt = $this->conn->prepare($query);
 
         // Sanitize input
         $this->username = htmlspecialchars(strip_tags($this->username));
         $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->phone_number = htmlspecialchars(strip_tags($this->phone_number));
 
         // Hash the password
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
@@ -36,6 +37,7 @@ class User {
         $stmt->bindParam(':username', $this->username);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
+        $stmt->bindParam(':phone_number', $this->phone_number);
 
         if ($stmt->execute()) {
             return true;

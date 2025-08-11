@@ -1,42 +1,91 @@
 <?php include_once __DIR__ . '/../../views/partials/header.php'; ?>
 
-<div class="min-h-screen flex items-center justify-center bg-accent-light py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg">
-        <h1 class="text-center text-3xl font-extrabold text-text-main">Register</h1>
-        
-        <!-- Display errors if any -->
-        <?php if (isset($_SESSION['error_message'])):
-        ?>
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <span class="block sm:inline"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></span>
-            </div>
-        <?php endif; ?>
-
-        <form action="/app1/public/auth/register_process" method="POST" class="mt-8 space-y-6">
-            <div class="rounded-md shadow-sm -space-y-px">
-                <div>
-                    <label for="username" class="sr-only">Username</label>
-                    <input id="username" name="username" type="text" autocomplete="username" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-text-main bg-white rounded-t-md focus:outline-none focus:ring-accent focus:border-accent focus:z-10 sm:text-sm" placeholder="Username">
-                </div>
-                <div>
-                    <label for="email" class="sr-only">Email</label>
-                    <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-text-main bg-white focus:outline-none focus:ring-accent focus:border-accent focus:z-10 sm:text-sm" placeholder="Email address">
-                </div>
-                <div>
-                    <label for="password" class="sr-only">Password</label>
-                    <input id="password" name="password" type="password" autocomplete="new-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-text-main bg-white rounded-b-md focus:outline-none focus:ring-accent focus:border-accent focus:z-10 sm:text-sm" placeholder="Password">
-                </div>
+<div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
+    <div class="sm:mx-auto sm:w-full sm:max-w-5xl">
+        <div class="bg-white shadow-2xl rounded-3xl overflow-hidden md:flex">
+            
+            <!-- Image Column -->
+            <div class="hidden md:block md:w-1/2">
+                <img class="object-cover h-full w-full" src="/app1/public/img/man1.jpg" alt="Registration page background image">
             </div>
 
-            <div>
-                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-accent hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent">
-                    Register
-                </button>
+            <!-- Form Column -->
+            <div class="w-full md:w-1/2 p-8 sm:p-12">
+                <div class="sm:mx-auto sm:w-full sm:max-w-md">
+                    <h2 class="mt-6 text-center text-4xl font-extrabold text-gray-900">
+                        สร้างบัญชีใหม่
+                    </h2>
+                    <p class="mt-2 text-center text-sm text-gray-600">
+                        หรือ <a href="/app1/public/auth/login" class="font-medium text-accent hover:text-highlight">
+                            เข้าสู่ระบบที่นี่
+                        </a>
+                    </p>
+                </div>
+
+                <div class="mt-8">
+                    <!-- Display errors if any -->
+                    <?php if (isset($_SESSION['error_message'])): ?>
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md" role="alert">
+                            <p><?= htmlspecialchars($_SESSION['error_message']); ?></p>
+                        </div>
+                        <?php unset($_SESSION['error_message']); ?>
+                    <?php endif; ?>
+
+                    <form action="/app1/public/auth/register_process" method="POST" class="space-y-6">
+                        <div>
+                            <label for="username" class="block text-sm font-medium text-gray-700">
+                                ชื่อผู้ใช้
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input id="username" name="username" type="text" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="yourusername">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">
+                                อีเมล
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="you@example.com">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="phone_number" class="block text-sm font-medium text-gray-700">
+                                เบอร์โทรศัพท์
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input id="phone_number" name="phone_number" type="text" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="081-234-5678">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">
+                                รหัสผ่าน
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input id="password" name="password" type="password" autocomplete="new-password" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="********">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="confirm_password" class="block text-sm font-medium text-gray-700">
+                                ยืนยันรหัสผ่าน
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input id="confirm_password" name="confirm_password" type="password" autocomplete="new-password" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="********">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent hover:bg-highlight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-dark transition-all duration-300 transform hover:scale-105">
+                                สมัครสมาชิก
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
-        <p class="text-center text-text-main mt-2">
-            Already have an account? <a href="/app1/public/auth/login" class="font-medium text-accent hover:text-opacity-80">Login here</a>
-        </p>
+        </div>
     </div>
 </div>
 
