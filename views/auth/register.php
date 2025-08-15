@@ -1,4 +1,21 @@
-<?php include_once __DIR__ . '/../../views/partials/header.php'; ?>
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+$username = '';
+$email = '';
+$phone_number = '';
+
+if (isset($_SESSION['form_data'])) {
+    $username = htmlspecialchars($_SESSION['form_data']['username'] ?? '');
+    $email = htmlspecialchars($_SESSION['form_data']['email'] ?? '');
+    $phone_number = htmlspecialchars($_SESSION['form_data']['phone_number'] ?? '');
+    unset($_SESSION['form_data']);
+}
+
+include_once __DIR__ . '/../../views/partials/header.php';
+?>
 
 <div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
     <div class="sm:mx-auto sm:w-full sm:max-w-5xl">
@@ -37,7 +54,7 @@
                                 ชื่อผู้ใช้
                             </label>
                             <div class="mt-1 relative rounded-md shadow-sm">
-                                <input id="username" name="username" type="text" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="yourusername">
+                                <input id="username" name="username" type="text" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="yourusername" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
                             </div>
                         </div>
 
@@ -46,7 +63,7 @@
                                 อีเมล
                             </label>
                             <div class="mt-1 relative rounded-md shadow-sm">
-                                <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="you@example.com">
+                                <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="you@example.com" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
                             </div>
                         </div>
 
@@ -55,7 +72,7 @@
                                 เบอร์โทรศัพท์
                             </label>
                             <div class="mt-1 relative rounded-md shadow-sm">
-                                <input id="phone_number" name="phone_number" type="text" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="081-234-5678">
+                                <input id="phone_number" name="phone_number" type="text" required class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm" placeholder="081-234-5678" value="<?= htmlspecialchars($_POST['phone_number'] ?? '') ?>">
                             </div>
                         </div>
 

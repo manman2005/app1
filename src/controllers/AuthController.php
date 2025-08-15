@@ -12,6 +12,11 @@ class AuthController {
             // Check if username or email already exists
             if ($user->exists($_POST['username'], $_POST['email'])) {
                 $_SESSION['error_message'] = "Username or email already taken.";
+                $_SESSION['form_data'] = [
+                    'username' => $_POST['username'],
+                    'email' => $_POST['email'],
+                    'phone_number' => $_POST['phone_number']
+                ];
                 header("Location: /app1/public/auth/register");
                 exit;
             }
@@ -20,6 +25,18 @@ class AuthController {
             $user->email = $_POST['email'];
             $user->phone_number = $_POST['phone_number'];
             $user->password = $_POST['password'];
+            $confirm_password = $_POST['confirm_password'];
+
+            if ($_POST['password'] !== $confirm_password) {
+                $_SESSION['error_message'] = "รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่อีกครั้ง";
+                $_SESSION['form_data'] = [
+                    'username' => $_POST['username'],
+                    'email' => $_POST['email'],
+                    'phone_number' => $_POST['phone_number']
+                ];
+                header("Location: /app1/public/auth/register");
+                exit;
+            }
 
             if ($user->create()) {
                 $_SESSION['success_message'] = "Registration successful! Please login.";
