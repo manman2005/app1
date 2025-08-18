@@ -10,7 +10,7 @@
     <div class="text-center p-8 bg-white rounded-2xl shadow-lg">
         <h1 class="text-6xl font-bold text-accent mb-4">404</h1>
         <p class="text-2xl text-text-main mb-4">ไม่พบหน้าที่คุณกำลังมองหา</p>
-        <p class="text-lg text-gray-600 mb-8">ขออภัยในความไม่สะดวก หน้าที่คุณพยายามเข้าถึงอาจถูกลบ เปลี่ยนชื่อ หรือไม่มีอยู่จริง</p>
+        <p class="text-lg text-gray-600 mb-8">ขออภัยในความไม่สะดวก หน้าที่คุณพยายามเข้าถึงอาจถูกลบ เปลี่ยนชื่อ หรือไม่มีอยู่จริง หากคุณจะจองห้องต้องล็อคอินก่อน</p>
         <a href="/app1/public/" class="bg-accent hover:brightness-95 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">กลับสู่หน้าหลัก</a>
     </div>
 </body>

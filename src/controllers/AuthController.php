@@ -63,8 +63,13 @@ class AuthController {
                     $_SESSION['user_id'] = $found_user['id'];
                     $_SESSION['user_role'] = $found_user['role'];
                     $_SESSION['username'] = $found_user['username'];
-                    $_SESSION['debug_message'] = "Login successful! (Debug: password_verify returned TRUE)";
-                    if ($found_user['role'] === 'admin') {
+
+                    // Redirect to intended URL or default page
+                    if (isset($_SESSION['intended_url'])) {
+                        $intended_url = $_SESSION['intended_url'];
+                        unset($_SESSION['intended_url']); // Clear it after use
+                        header("Location: " . $intended_url);
+                    } elseif ($found_user['role'] === 'admin') {
                         header("Location: /app1/public/admin/dashboard");
                     } else {
                         header("Location: /app1/public/");

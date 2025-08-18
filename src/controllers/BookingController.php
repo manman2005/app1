@@ -32,6 +32,22 @@ class BookingController {
     }
 
     public function store() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // REQUIRE LOGIN
+        if (!isset($_SESSION['user_id'])) {
+            // Store the page they were trying to access.
+            $_SESSION['intended_url'] = "/app1/public/book?room_id=" . $_POST['room_id'];
+            $_SESSION['error_message'] = 'กรุณาเข้าสู่ระบบเพื่อทำการจอง';
+            header('Location: /app1/public/login');
+            exit();
+        }
+
+        $room_id = $_POST['room_id'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
         // Handle the booking form submission
         if (!isset($_SESSION['user_id'])) {
             header('Location: /login');
