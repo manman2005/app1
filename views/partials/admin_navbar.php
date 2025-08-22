@@ -19,7 +19,7 @@
             <div class="hidden md:flex items-center space-x-4">
                 <span class="text-gray-400">สวัสดี, <?= htmlspecialchars($_SESSION['username']); ?></span>
                 <a href="/app1/public/" class="text-gray-300 hover:bg-stone-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" target="_blank">กลับสู่หน้าหลัก</a>
-                <a href="/app1/public/auth/logout" class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md text-sm font-medium">ออกจากระบบ</a>
+                <a href="/app1/public/logout" class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md text-sm font-medium">ออกจากระบบ</a>
             </div>
             <div class="-mr-2 flex md:hidden">
                 <button type="button" id="mobile-menu-button-admin" class="bg-stone-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-stone-800 focus:ring-white">
