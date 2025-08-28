@@ -17,7 +17,7 @@ class AuthController {
                     'email' => $_POST['email'],
                     'phone_number' => $_POST['phone_number']
                 ];
-                header("Location: /app1/auth/register");
+                header("Location: " . BASE_PATH . "/auth/register");
                 exit;
             }
 
@@ -34,17 +34,17 @@ class AuthController {
                     'email' => $_POST['email'],
                     'phone_number' => $_POST['phone_number']
                 ];
-                header("Location: /app1/auth/register");
+                header("Location: " . BASE_PATH . "/auth/register");
                 exit;
             }
 
             if ($user->create()) {
                 $_SESSION['success_message'] = "Registration successful! Please login.";
-                header("Location: /app1/auth/login");
+                header("Location: " . BASE_PATH . "/auth/login");
                 exit;
             } else {
                 $_SESSION['error_message'] = "Unable to register user.";
-                header("Location: /app1/auth/register");
+                header("Location: " . BASE_PATH . "/auth/register");
                 exit;
             }
         }
@@ -70,19 +70,19 @@ class AuthController {
                         unset($_SESSION['intended_url']); // Clear it after use
                         header("Location: " . $intended_url);
                     } elseif ($found_user['role'] === 'admin') {
-                        header("Location: /app1/admin/dashboard");
+                        header("Location: " . BASE_PATH . "/admin/dashboard");
                     } else {
-                        header("Location: /app1/");
+                        header("Location: " . BASE_PATH . "/");
                     }
                     exit;
                 } else {
                     $_SESSION['error_message'] = "Invalid username or password. (Debug: password_verify returned FALSE)";
-                    header("Location: /app1/auth/login");
+                    header("Location: " . BASE_PATH . "/auth/login");
                     exit;
                 }
             } else {
                 $_SESSION['error_message'] = "Invalid username or password. (Debug: User not found)";
-                header("Location: /app1/auth/login");
+                header("Location: " . BASE_PATH . "/auth/login");
                 exit;
             }
         }
@@ -92,7 +92,7 @@ class AuthController {
         session_start();
         session_unset();
         session_destroy();
-        header("Location: /app1/auth/login");
+        header("Location: " . BASE_PATH . "/auth/login");
         exit;
     }
 }

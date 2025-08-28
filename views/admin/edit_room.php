@@ -5,7 +5,7 @@
     <h1 class="text-4xl font-bold text-text-main mb-8 text-center">แก้ไขข้อมูลห้องพัก</h1>
 
     <div class="bg-white shadow-2xl rounded-2xl overflow-hidden p-8 max-w-3xl mx-auto">
-        <form action="/app1/admin/editRoom" method="POST" enctype="multipart/form-data">
+        <form action="<?= BASE_PATH ?>/admin/editRoom" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= htmlspecialchars($roomData->id); ?>">
         
         <div class="mb-4">
@@ -41,10 +41,12 @@
                 รูปภาพห้องพัก (เลือกได้หลายรูป):
             </label>
             <input class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-text-main focus:ring-accent focus:border-accent transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-light file:text-accent hover:file:bg-accent" id="image" type="file" name="image[]" accept="image/*" multiple>
-            <?php if (!empty($roomData->image_url)): ?>
+            <?php if (!empty($roomData->image_url)):
+ ?>
                 <p class="text-sm text-text-main mt-2">รูปภาพปัจจุบัน:</p>
                 <div class="flex flex-wrap gap-2 mt-1">
-                    <?php foreach ($roomData->image_url as $index => $img_url): ?>
+                    <?php foreach ($roomData->image_url as $index => $img_url):
+ ?>
                         <div class="relative w-24 h-24 group">
                             <img src="<?= htmlspecialchars($img_url); ?>" alt="Room Image" class="w-full h-full object-cover rounded-md border border-gray-300">
                             <button type="button" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md" onclick="deleteImage('<?= htmlspecialchars($roomData->id); ?>', '<?= $index; ?>')">
@@ -67,7 +69,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-8">
-            <a href="/app1/admin/dashboard" class="text-gray-600 hover:text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">
+            <a href="<?= BASE_PATH ?>/admin/dashboard" class="text-gray-600 hover:text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">
                 ยกเลิก
             </a>
             <button class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" type="submit">
@@ -92,7 +94,7 @@ function deleteImage(roomId, imageIndex) {
         cancelButtonText: 'ยกเลิก'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch('/app1/admin/deleteRoomImage', {
+            fetch('<?= BASE_PATH ?>/admin/deleteRoomImage', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
 
-                    <form action="/app1/book" method="POST" id="booking-form">
+                    <form action="<?= BASE_PATH ?>/book" method="POST" id="booking-form">
                             <input type="hidden" name="room_id" value="<?= $room->id; ?>">
                             
                             <!-- Unavailable Dates Display -->
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="text-center py-20">
                         <h2 class="text-2xl font-semibold text-text-main">ไม่พบห้องพัก</h2>
                         <p class="text-text-main mt-2">เราไม่พบห้องพักที่คุณกำลังมองหา</p>
-                        <a href="/app1/home" class="mt-6 inline-block bg-accent text-white px-6 py-2 rounded-lg hover:bg-opacity-80 transition">กลับสู่หน้าหลัก</a>
+                        <a href="<?= BASE_PATH ?>/home" class="mt-6 inline-block bg-accent text-white px-6 py-2 rounded-lg hover:bg-opacity-80 transition">กลับสู่หน้าหลัก</a>
                     </div>
                 <?php endif; ?>
             </div>

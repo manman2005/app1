@@ -5,7 +5,7 @@
     <h1 class="text-4xl font-bold text-text-main mb-8 text-center">เพิ่มห้องพักใหม่</h1>
 
     <div class="bg-white shadow-2xl rounded-2xl overflow-hidden p-8 max-w-3xl mx-auto">
-        <form action="/app1/admin/addRoom" method="POST" enctype="multipart/form-data">
+        <form action="<?= BASE_PATH ?>/admin/addRoom" method="POST" enctype="multipart/form-data">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
                     <label class="block text-text-main text-sm font-bold mb-2" for="room_number">
@@ -51,7 +51,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-8">
-                <a href="/app1/admin/dashboard" class="text-gray-600 hover:text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">
+                <a href="<?= BASE_PATH ?>/admin/dashboard" class="text-gray-600 hover:text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">
                     ยกเลิก
                 </a>
                 <button class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" type="submit">

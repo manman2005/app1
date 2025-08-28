@@ -39,7 +39,7 @@ class BookingController {
         // REQUIRE LOGIN
         if (!isset($_SESSION['user_id'])) {
             // Store the page they were trying to access.
-            $_SESSION['intended_url'] = "/app1/book?room_id=" . $_POST['room_id'];
+            $_SESSION['intended_url'] = BASE_PATH . "/book?room_id=" . $_POST['room_id'];
             $_SESSION['error_message'] = 'กรุณาเข้าสู่ระบบเพื่อทำการจอง';
             header('Location: /app1/login');
             exit();
@@ -91,7 +91,7 @@ class BookingController {
         // Check for room availability
         if (!$booking->isRoomAvailable($room_id, $start_date, $end_date)) {
             $_SESSION['error_message'] = "Room is not available for the selected dates.";
-            header('Location: /app1/book?room_id=' . $room_id);
+            header('Location: ' . BASE_PATH . '/book?room_id=' . $room_id);
             exit();
         }
 
@@ -104,7 +104,7 @@ class BookingController {
             exit(); // Stop script execution after loading the view
         } else {
             $_SESSION['error_message'] = 'เกิดข้อผิดพลาดในการสร้างการจอง โปรดลองอีกครั้ง';
-            header('Location: /app1/book?room_id=' . $room_id);
+            header('Location: ' . BASE_PATH . '/book?room_id=' . $room_id);
             exit();
         }
     }

@@ -45,7 +45,7 @@ class ProfileController {
 
     public function updateProfile() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user_id'])) {
-            header('Location: /app1/user/profile');
+            header('Location: ' . BASE_PATH . '/user/profile');
             exit();
         }
 
@@ -72,13 +72,13 @@ class ProfileController {
             $_SESSION['error_message'] = 'เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์';
         }
 
-        header('Location: /app1/user/profile');
+        header('Location: ' . BASE_PATH . '/user/profile');
         exit();
     }
 
     public function changePassword() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user_id'])) {
-            header('Location: /app1/user/profile');
+            header('Location: ' . BASE_PATH . '/user/profile');
             exit();
         }
 
@@ -88,13 +88,13 @@ class ProfileController {
 
         if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
             $_SESSION['error_message'] = 'กรุณากรอกข้อมูลทั้งหมดเพื่อเปลี่ยนรหัสผ่าน';
-            header('Location: /app1/user/profile');
+            header('Location: ' . BASE_PATH . '/user/profile');
             exit();
         }
 
         if ($new_password !== $confirm_password) {
             $_SESSION['error_message'] = 'รหัสผ่านใหม่และการยืนยันไม่ตรงกัน';
-            header('Location: /app1/user/profile');
+            header('Location: ' . BASE_PATH . '/user/profile');
             exit();
         }
 
@@ -105,7 +105,7 @@ class ProfileController {
         if (!$currentUser) {
             // This case should rarely happen if the session is valid
             $_SESSION['error_message'] = 'ไม่พบผู้ใช้ในระบบ';
-            header('Location: /app1/user/profile');
+            header('Location: ' . BASE_PATH . '/user/profile');
             exit();
         }
 
@@ -127,13 +127,13 @@ class ProfileController {
             $_SESSION['error_message'] = 'รหัสผ่านปัจจุบันไม่ถูกต้อง';
         }
 
-        header('Location: /app1/user/profile');
+        header('Location: ' . BASE_PATH . '/user/profile');
         exit();
     }
 
     public function uploadProfilePicture() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user_id'])) {
-            header('Location: /app1/user/profile');
+            header('Location: ' . BASE_PATH . '/user/profile');
             exit();
         }
 
@@ -156,7 +156,7 @@ class ProfileController {
                     $userInstance = new User();
                     $userInstance->id = $_SESSION['user_id'];
                     // Prepend the base path for use in views
-                    $userInstance->profile_picture = '/app1/uploads/avatars/' . $newFileName;
+                    $userInstance->profile_picture = BASE_PATH . '/uploads/avatars/' . $newFileName;
 
                     if ($userInstance->update()) {
                         $_SESSION['success_message'] = 'รูปโปรไฟล์ถูกอัปเดตเรียบร้อยแล้ว';
@@ -173,7 +173,7 @@ class ProfileController {
             $_SESSION['error_message'] = 'เกิดข้อผิดพลาดในการอัปโหลดไฟล์';
         }
 
-        header('Location: /app1/user/profile');
+        header('Location: ' . BASE_PATH . '/user/profile');
         exit();
     }
 }
