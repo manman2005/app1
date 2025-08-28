@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build:css": "tailwindcss -i ./public/css/input.css -o ./public/css/style.css --watch"
+    "build": "tailwindcss -i ./css/input.css -o ./css/style.css --minify",
+    "watch": "tailwindcss -i ./css/input.css -o ./css/style.css --watch"
   },
   "keywords": [],
   "author": "",

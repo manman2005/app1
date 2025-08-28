@@ -7,11 +7,11 @@
     <!-- Background Images -->
     <div class="absolute inset-0 w-full h-full">
         <!-- Camping Tent Image -->
-        <div x-show.transition.opacity.duration.2000ms="activeSlide === 1" class="absolute inset-0 w-full h-full bg-cover bg-center animate-ken-burns" style="background-image: url('/app1/public/img/man.jpg');"></div>
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 1" class="absolute inset-0 w-full h-full bg-cover bg-center animate-ken-burns" style="background-image: url('<?= BASE_PATH ?>/img/man.jpg');"></div>
         <!-- Forest Path Image -->
-        <div x-show.transition.opacity.duration.2000ms="activeSlide === 2" class="absolute inset-0 w-full h-full bg-cover bg-center animate-ken-burns" style="background-image: url('/app1/public/img/man1.jpg');"></div>
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 2" class="absolute inset-0 w-full h-full bg-cover bg-center animate-ken-burns" style="background-image: url('<?= BASE_PATH ?>/img/man1.jpg');"></div>
         <!-- Campfire Image -->
-        <div x-show.transition.opacity.duration.2000ms="activeSlide === 3" class="absolute inset-0 w-full h-full bg-cover bg-center animate-ken-burns" style="background-image: url('/app1/public/img/man2.jpg');"></div>
+        <div x-show.transition.opacity.duration.2000ms="activeSlide === 3" class="absolute inset-0 w-full h-full bg-cover bg-center animate-ken-burns" style="background-image: url('<?= BASE_PATH ?>/img/man2.jpg');"></div>
     </div>
 
     <!-- Overlay -->
@@ -39,7 +39,15 @@
                         <?php 
                             $display_image = '';
                             if (!empty($room['image_url']) && is_array($room['image_url'])) {
-                                $display_image = htmlspecialchars($room['image_url'][0]);
+                                $image_path_from_db = $room['image_url'][0];
+                                // Strip the old, incorrect prefixes to get a clean path
+                                // Remove /app1/public/ or /app1/ from the beginning
+                                $clean_path = preg_replace('#^/app1/public#', '', $image_path_from_db);
+                                $clean_path = preg_replace('#^/app1#', '', $clean_path);
+                                // Ensure it starts with a single slash
+                                $clean_path = '/' . ltrim($clean_path, '/');
+                                // Now, build the correct, dynamic path
+                                $display_image = BASE_PATH . $clean_path;
                             } else {
                                 // Placeholder image if no image is available
                                 $display_image = 'https://via.placeholder.com/600x400?text=Camping+Site';
@@ -57,7 +65,7 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-2xl font-bold text-accent font-display">฿<?= number_format($room['price_per_night']); ?> <span class="text-sm font-normal text-text-main font-body">/ คืน</span></span>
-                                <a href="/app1/public/book?room_id=<?= htmlspecialchars($room['id']); ?>" class="btn bg-highlight text-white px-5 py-2 rounded-lg transition duration-300 font-body">จองเลย</a>
+                                <a href="<?= BASE_PATH ?>/book?room_id=<?= htmlspecialchars($room['id']); ?>" class="btn bg-highlight text-white px-5 py-2 rounded-lg transition duration-300 font-body">จองเลย</a>
                             </div>
                         </div>
                     </div>
@@ -74,7 +82,7 @@
     <div class="container mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div class="animate-fade-in-right">
-                <img src="/app1/public/img/486826403_683375754211544_5369952372350186305_n.jpg" alt="About Srinaman Camping & Resort" class="rounded-lg shadow-xl w-full">
+                <img src="<?= BASE_PATH ?>/img/486826403_683375754211544_5369952372350186305_n.jpg" alt="About Srinaman Camping & Resort" class="rounded-lg shadow-xl w-full">
             </div>
             <div class="animate-fade-in-left">
                 <h2 class="text-4xl font-bold text-text-main mb-4 font-display">เรื่องราวของเรา</h2>

@@ -23,7 +23,7 @@ include_once __DIR__ . '/../../views/partials/header.php';
             
             <!-- Image Column -->
             <div class="hidden md:block md:w-1/2">
-                <img class="object-cover h-full w-full" src="/app1/public/img/man1.jpg" alt="Registration page background image">
+                <img class="object-cover h-full w-full" src="/app1/img/man1.jpg" alt="Registration page background image">
             </div>
 
             <!-- Form Column -->
@@ -33,7 +33,7 @@ include_once __DIR__ . '/../../views/partials/header.php';
                         สร้างบัญชีใหม่
                     </h2>
                     <p class="mt-2 text-center text-sm text-gray-600">
-                        หรือ <a href="/app1/public/auth/login" class="font-medium text-accent hover:text-highlight">
+                        หรือ <a href="/app1/auth/login" class="font-medium text-accent hover:text-highlight">
                             เข้าสู่ระบบที่นี่
                         </a>
                     </p>
@@ -48,7 +48,7 @@ include_once __DIR__ . '/../../views/partials/header.php';
                         <?php unset($_SESSION['error_message']); ?>
                     <?php endif; ?>
 
-                    <form action="/app1/public/auth/register_process" method="POST" class="space-y-6">
+                    <form action="/app1/auth/register_process" method="POST" class="space-y-6">
                         <div>
                             <label for="username" class="block text-sm font-medium text-gray-700">
                                 ชื่อผู้ใช้

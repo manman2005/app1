@@ -11,7 +11,7 @@
                         เข้าสู่ระบบ
                     </h2>
                     <p class="mt-2 text-center text-sm text-gray-600">
-                        ยังไม่มีบัญชี? <a href="/app1/public/auth/register" class="font-medium text-accent hover:text-highlight">
+                        ยังไม่มีบัญชี? <a href="/app1/auth/register" class="font-medium text-accent hover:text-highlight">
                             สมัครสมาชิกที่นี่
                         </a>
                     </p>
@@ -34,7 +34,7 @@
                         <?php unset($_SESSION['error_message']); ?>
                     <?php endif; ?>
 
-                    <form action="/app1/public/auth/login_process" method="POST" class="space-y-6">
+                    <form action="/app1/auth/login_process" method="POST" class="space-y-6">
                         <div>
                             <label for="username" class="block text-sm font-medium text-gray-700">
                                 ชื่อผู้ใช้
@@ -79,7 +79,7 @@
             
             <!-- Image Column -->
             <div class="hidden md:block md:w-1/2">
-                <img class="object-cover h-full w-full" src="/app1/public/img/man2.jpg" alt="Login page background image">
+                <img class="object-cover h-full w-full" src="/app1/img/man2.jpg" alt="Login page background image">
             </div>
 
         </div>

@@ -7,7 +7,7 @@ class AdminController {
     public function dashboard() {
         // Check if user is logged in and is admin
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-            header('Location: /app1/public/auth/login');
+            header('Location: ' . BASE_PATH . '/auth/login');
             exit();
         }
 
@@ -56,7 +56,7 @@ class AdminController {
 
     public function editUser() {
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-            header('Location: /app1/public/auth/login');
+            header('Location: ' . BASE_PATH . '/auth/login');
             exit();
         }
 
@@ -76,7 +76,7 @@ class AdminController {
             } else {
                 $_SESSION['error'] = 'Failed to update user.';
             }
-            header('Location: /app1/public/admin/dashboard');
+            header('Location: ' . BASE_PATH . '/admin/dashboard');
             exit();
         } else if (isset($_GET['id'])) {
             $userData = $user->getById($_GET['id']);
@@ -84,18 +84,18 @@ class AdminController {
                 include_once __DIR__ . '/../../views/admin/edit_user.php';
             } else {
                 $_SESSION['error'] = 'User not found.';
-                header('Location: /app1/public/admin/dashboard');
+                header('Location: ' . BASE_PATH . '/admin/dashboard');
                 exit();
             }
         } else {
-            header('Location: /app1/public/admin/dashboard');
+            header('Location: ' . BASE_PATH . '/admin/dashboard');
             exit();
         }
     }
 
     public function deleteUser() {
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-            header('Location: /app1/public/auth/login');
+            header('Location: ' . BASE_PATH . '/auth/login');
             exit();
         }
 
@@ -109,13 +109,13 @@ class AdminController {
                 $_SESSION['error'] = 'Failed to delete user.';
             }
         }
-        header('Location: /app1/public/admin/dashboard');
+        header('Location: ' . BASE_PATH . '/admin/dashboard');
         exit();
     }
 
     public function addUser() {
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-            header('Location: /app1/public/auth/login');
+            header('Location: ' . BASE_PATH . '/auth/login');
             exit();
         }
 
@@ -132,7 +132,7 @@ class AdminController {
             } else {
                 $_SESSION['error'] = 'Failed to add user.';
             }
-            header('Location: /app1/public/admin/dashboard');
+            header('Location: ' . BASE_PATH . '/admin/dashboard');
             exit();
         }
 
@@ -141,7 +141,7 @@ class AdminController {
 
     public function addRoom() {
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-            header('Location: /app1/public/auth/login');
+            header('Location: ' . BASE_PATH . '/auth/login');
             exit();
         }
 
@@ -156,7 +156,7 @@ class AdminController {
 
             $image_urls = [];
             if (isset($_FILES['image']) && is_array($_FILES['image']['name'])) {
-                $upload_dir = __DIR__ . '/../../public/uploads/rooms/';
+                $upload_dir = __DIR__ . '/../../uploads/rooms/';
                 if (!is_dir($upload_dir)) {
                     mkdir($upload_dir, 0777, true);
                 }
@@ -168,10 +168,10 @@ class AdminController {
                         $target_file = $upload_dir . $new_file_name;
 
                         if (move_uploaded_file($_FILES['image']['tmp_name'][$key], $target_file)) {
-                            $image_urls[] = '/app1/public/uploads/rooms/' . $new_file_name;
+                            $image_urls[] = BASE_PATH . '/uploads/rooms/' . $new_file_name;
                         } else {
                             $_SESSION['error'] = 'Failed to upload some images.';
-                            header('Location: /app1/public/admin/addRoom');
+                            header('Location: ' . BASE_PATH . '/admin/addRoom');
                             exit();
                         }
                     }
@@ -184,7 +184,7 @@ class AdminController {
             } else {
                 $_SESSION['error'] = 'Failed to add room.';
             }
-            header('Location: /app1/public/admin/dashboard');
+            header('Location: ' . BASE_PATH . '/admin/dashboard');
             exit();
         }
 
@@ -193,7 +193,7 @@ class AdminController {
 
     public function editRoom() {
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-            header('Location: /app1/public/auth/login');
+            header('Location: ' . BASE_PATH . '/auth/login');
             exit();
         }
 
@@ -218,7 +218,7 @@ class AdminController {
 
             // Check if new images are uploaded
             if (isset($_FILES['image']) && is_array($_FILES['image']['name']) && !empty(array_filter($_FILES['image']['name']))) {
-                $upload_dir = __DIR__ . '/../../public/uploads/rooms/';
+                $upload_dir = __DIR__ . '/../../uploads/rooms/';
                 if (!is_dir($upload_dir)) {
                     mkdir($upload_dir, 0777, true);
                 }
@@ -231,10 +231,10 @@ class AdminController {
                         $target_file = $upload_dir . $new_file_name;
 
                         if (move_uploaded_file($_FILES['image']['tmp_name'][$key], $target_file)) {
-                            $new_image_urls[] = '/app1/public/uploads/rooms/' . $new_file_name;
+                            $new_image_urls[] = BASE_PATH . '/uploads/rooms/' . $new_file_name;
                         } else {
                             $_SESSION['error'] = 'Failed to upload some new images.';
-                            header('Location: /app1/public/admin/editRoom?id=' . $room->id);
+                            header('Location: ' . BASE_PATH . '/admin/editRoom?id=' . $room->id);
                             exit();
                         }
                     }
@@ -251,7 +251,7 @@ class AdminController {
             } else {
                 $_SESSION['error'] = 'Failed to update room.';
             }
-            header('Location: /app1/public/admin/dashboard');
+            header('Location: ' . BASE_PATH . '/admin/dashboard');
             exit();
         } else if (isset($_GET['id'])) {
             $roomData = $room->getById($_GET['id']);
@@ -259,18 +259,18 @@ class AdminController {
                 include_once __DIR__ . '/../../views/admin/edit_room.php'; // You'll need to create this view
             } else {
                 $_SESSION['error'] = 'Room not found.';
-                header('Location: /app1/public/admin/dashboard');
+                header('Location: ' . BASE_PATH . '/admin/dashboard');
                 exit();
             }
         } else {
-            header('Location: /app1/public/admin/dashboard');
+            header('Location: ' . BASE_PATH . '/admin/dashboard');
             exit();
         }
     }
 
     public function deleteRoom() {
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-            header('Location: /app1/public/auth/login');
+            header('Location: ' . BASE_PATH . '/auth/login');
             exit();
         }
 
@@ -284,7 +284,7 @@ class AdminController {
                 $_SESSION['error'] = 'Failed to delete room.';
             }
         }
-        header('Location: /app1/public/admin/dashboard');
+        header('Location: ' . BASE_PATH . '/admin/dashboard');
         exit();
     }
 
@@ -322,7 +322,7 @@ class AdminController {
 
     public function approveBooking() {
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-            header('Location: /app1/public/auth/login');
+            header('Location: ' . BASE_PATH . '/auth/login');
             exit();
         }
 
@@ -334,13 +334,13 @@ class AdminController {
                 $_SESSION['error'] = 'Failed to approve booking.';
             }
         }
-        header('Location: /app1/public/admin/dashboard');
+        header('Location: ' . BASE_PATH . '/admin/dashboard');
         exit();
     }
 
     public function rejectBooking() {
         if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-            header('Location: /app1/public/auth/login');
+            header('Location: ' . BASE_PATH . '/auth/login');
             exit();
         }
 
@@ -352,7 +352,7 @@ class AdminController {
                 $_SESSION['error'] = 'Failed to reject booking.';
             }
         }
-        header('Location: /app1/public/admin/dashboard');
+        header('Location: ' . BASE_PATH . '/admin/dashboard');
         exit();
     }
 }

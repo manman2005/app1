@@ -29,7 +29,7 @@
     </script>
     <?php endif; ?>
 
-    <form action="/app1/public/admin/editUser" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form action="/app1/admin/editUser" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <input type="hidden" name="id" value="<?= htmlspecialchars($userData['id']); ?>">
         
         <div class="mb-4">
@@ -67,7 +67,7 @@
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                 Update User
             </button>
-            <a href="/app1/public/admin/dashboard" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+            <a href="/app1/admin/dashboard" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
                 Cancel
             </a>
         </div>

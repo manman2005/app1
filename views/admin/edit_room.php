@@ -5,7 +5,7 @@
     <h1 class="text-4xl font-bold text-text-main mb-8 text-center">แก้ไขข้อมูลห้องพัก</h1>
 
     <div class="bg-white shadow-2xl rounded-2xl overflow-hidden p-8 max-w-3xl mx-auto">
-        <form action="/app1/public/admin/editRoom" method="POST" enctype="multipart/form-data">
+        <form action="/app1/admin/editRoom" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= htmlspecialchars($roomData->id); ?>">
         
         <div class="mb-4">
@@ -67,7 +67,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-8">
-            <a href="/app1/public/admin/dashboard" class="text-gray-600 hover:text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">
+            <a href="/app1/admin/dashboard" class="text-gray-600 hover:text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">
                 ยกเลิก
             </a>
             <button class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" type="submit">
@@ -92,7 +92,7 @@ function deleteImage(roomId, imageIndex) {
         cancelButtonText: 'ยกเลิก'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch('/app1/public/admin/deleteRoomImage', {
+            fetch('/app1/admin/deleteRoomImage', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

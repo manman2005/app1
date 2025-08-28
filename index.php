@@ -1,10 +1,14 @@
 <?php
+// Define a dynamic base path
+$base_path = rtrim(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '/');
+define('BASE_PATH', $base_path);
+
 session_start();
-require_once __DIR__ . '/../src/controllers/AuthController.php';
-require_once __DIR__ . '/../src/controllers/HomeController.php';
-require_once __DIR__ . '/../src/controllers/AdminController.php';
-require_once __DIR__ . '/../src/controllers/BookingController.php';
-require_once __DIR__ . '/../src/controllers/ProfileController.php';
+require_once __DIR__ . '/src/controllers/AuthController.php';
+require_once __DIR__ . '/src/controllers/HomeController.php';
+require_once __DIR__ . '/src/controllers/AdminController.php';
+require_once __DIR__ . '/src/controllers/BookingController.php';
+require_once __DIR__ . '/src/controllers/ProfileController.php';
 
 $authController = new AuthController();
 $homeController = new HomeController();
@@ -14,7 +18,7 @@ $profileController = new ProfileController();
 
 $path = $_SERVER['REQUEST_URI'];
 $path = parse_url($path, PHP_URL_PATH);
-$path = str_replace('/app1/public', '', $path);
+$path = str_replace(BASE_PATH, '', $path);
 
 switch ($path) {
     // --- Home Page ---
@@ -26,13 +30,13 @@ switch ($path) {
 
     // --- Authentication Routes ---
     case '/auth/register':
-        include __DIR__ . '/../views/auth/register.php';
+        include __DIR__ . '/views/auth/register.php';
         break;
     case '/auth/register_process':
         $authController->register();
         break;
     case '/auth/login':
-        include __DIR__ . '/../views/auth/login.php';
+        include __DIR__ . '/views/auth/login.php';
         break;
     case '/auth/login_process':
         $authController->login();
@@ -106,6 +110,6 @@ switch ($path) {
 
     default:
         http_response_code(404);
-        include __DIR__ . '/../views/404.php';
+        include __DIR__ . '/views/404.php';
         break;
 }

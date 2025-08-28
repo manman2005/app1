@@ -29,10 +29,10 @@
             </div>
 
             <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-                <a href="/app1/public/user/bookings" class="w-full bg-accent hover:bg-highlight text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+                <a href="/app1/user/bookings" class="w-full bg-accent hover:bg-highlight text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
                     ดูประวัติการจอง
                 </a>
-                <a href="/app1/public/" class="w-full bg-gray-200 hover:bg-gray-300 text-text-main font-bold py-3 px-6 rounded-lg text-lg transition duration-300">
+                <a href="/app1/" class="w-full bg-gray-200 hover:bg-gray-300 text-text-main font-bold py-3 px-6 rounded-lg text-lg transition duration-300">
                     กลับสู่หน้าหลัก
                 </a>
             </div>

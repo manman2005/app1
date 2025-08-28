@@ -265,8 +265,8 @@ class Room {
 
         if ($stmt->execute()) {
             // Attempt to delete the physical file
-            $base_path = __DIR__ . '/../../public'; // Adjust this path if your public folder is elsewhere
-            $file_path = $base_path . str_replace('/app1/public', '', $image_to_delete_url);
+            $base_path = __DIR__ . '/../..'; // Adjust this path if your public folder is elsewhere
+            $file_path = $base_path . str_replace('/app1', '', $image_to_delete_url);
             
             if (file_exists($file_path)) {
                 if (!unlink($file_path)) {

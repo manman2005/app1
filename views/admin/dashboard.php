@@ -57,10 +57,10 @@
             <div id="user-management" class="bg-accent-light p-6 rounded-lg shadow-md mb-8">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-semibold text-text-main">User Management</h2>
-                    <a href="/app1/public/admin/addUser" class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add New User</a>
+                    <a href="/app1/admin/addUser" class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add New User</a>
                 </div>
 
-                <form method="GET" action="/app1/public/admin/dashboard" class="mb-4">
+                <form method="GET" action="/app1/admin/dashboard" class="mb-4">
                     <input type="hidden" name="tab" value="user-management-tab">
                     <div class="flex space-x-4">
                         <input type="text" name="user_search" placeholder="Search users..." class="flex-grow p-2 border border-gray-300 rounded-md" value="<?= htmlspecialchars($user_search_term); ?>">
@@ -97,8 +97,8 @@
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?php echo htmlspecialchars($user['phone_number'] ?? 'N/A'); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?php echo htmlspecialchars($user['role']); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-right">
-                                <a href="/app1/public/admin/editUser?id=<?= htmlspecialchars($user['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md transition duration-300 mr-2">Edit</a>
-                                <form action="/app1/public/admin/deleteUser" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                <a href="/app1/admin/editUser?id=<?= htmlspecialchars($user['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md transition duration-300 mr-2">Edit</a>
+                                <form action="/app1/admin/deleteUser" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                     <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']); ?>">
                                     <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded-md transition duration-300">Delete</button>
                                 </form>
@@ -152,7 +152,7 @@
             <div id="booking-management" class="bg-accent-light p-6 rounded-lg shadow-md mb-8">
                 <h2 class="text-2xl font-semibold text-text-main mb-4">Recent Bookings</h2>
 
-                <form method="GET" action="/app1/public/admin/dashboard" class="mb-4">
+                <form method="GET" action="/app1/admin/dashboard" class="mb-4">
                     <input type="hidden" name="tab" value="booking-management-tab">
                     <div class="flex space-x-4">
                         <input type="text" name="booking_search" placeholder="Search bookings..." class="flex-grow p-2 border border-gray-300 rounded-md" value="<?= htmlspecialchars($booking_search_term); ?>">
@@ -202,11 +202,11 @@
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= date('d', strtotime($booking['created_at'])) . ' ' . $thai_months[date('m', strtotime($booking['created_at'])) - 1] . ' ' . (date('Y', strtotime($booking['created_at'])) + 543) . ', ' . date('H:i', strtotime($booking['created_at'])); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-right">
                                     <?php if ($booking['status'] == 'pending'): ?>
-                                        <form action="/app1/public/admin/approveBooking" method="POST" class="inline-block mr-2">
+                                        <form action="/app1/admin/approveBooking" method="POST" class="inline-block mr-2">
                                             <input type="hidden" name="booking_id" value="<?= htmlspecialchars($booking['id']); ?>">
                                             <button type="submit" class="bg-accent hover:bg-opacity-80 text-white text-sm py-1 px-3 rounded-md transition duration-300">อนุมัติ</button>
                                         </form>
-                                        <form action="/app1/public/admin/rejectBooking" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to reject this booking?');">
+                                        <form action="/app1/admin/rejectBooking" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to reject this booking?');">
                                             <input type="hidden" name="booking_id" value="<?= htmlspecialchars($booking['id']); ?>">
                                             <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded-md transition duration-300">ปฏิเสธ</button>
                                         </form>
@@ -260,10 +260,10 @@
             <div id="room-management" class="bg-accent-light p-6 rounded-lg shadow-md mb-8">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-semibold text-text-main">Room Management</h2>
-                    <a href="/app1/public/admin/addRoom" class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add New Room</a>
+                    <a href="/app1/admin/addRoom" class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add New Room</a>
                 </div>
 
-                <form method="GET" action="/app1/public/admin/dashboard" class="mb-4">
+                <form method="GET" action="/app1/admin/dashboard" class="mb-4">
                     <input type="hidden" name="tab" value="room-management-tab">
                     <div class="flex space-x-4">
                         <input type="text" name="room_search" placeholder="Search rooms..." class="flex-grow p-2 border border-gray-300 rounded-md" value="<?= htmlspecialchars($room_search_term); ?>">
@@ -318,8 +318,8 @@
                                 ?>
                             </td>
                             <td class="py-3 px-6 whitespace-nowrap text-right">
-                                <a href="/app1/public/admin/editRoom?id=<?= htmlspecialchars($room['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md transition duration-300 mr-2">Edit</a>
-                                <form action="/app1/public/admin/deleteRoom" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this room?');">
+                                <a href="/app1/admin/editRoom?id=<?= htmlspecialchars($room['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md transition duration-300 mr-2">Edit</a>
+                                <form action="/app1/admin/deleteRoom" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this room?');">
                                     <input type="hidden" name="id" value="<?= htmlspecialchars($room['id']); ?>">
                                     <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded-md transition duration-300">Delete</button>
                                 </form>

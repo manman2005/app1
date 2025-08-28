@@ -75,7 +75,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium align-middle">
-                                    <a href="/app1/public/book?room_id=<?= $booking['room_id'] ?>" class="text-accent hover:text-highlight transition-colors duration-200">ดูรายละเอียด</a>
+                                    <a href="/app1/book?room_id=<?= $booking['room_id'] ?>" class="text-accent hover:text-highlight transition-colors duration-200">ดูรายละเอียด</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -89,7 +89,7 @@
                     <h3 class="mt-2 text-lg font-medium text-gray-900">ไม่มีประวัติการจอง</h3>
                     <p class="mt-1 text-sm text-gray-500">ดูเหมือนว่าคุณยังไม่เคยทำการจองใดๆ</p>
                     <div class="mt-6">
-                        <a href="/app1/public/" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-accent hover:bg-highlight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-dark">
+                        <a href="/app1/" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-accent hover:bg-highlight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-dark">
                             <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                             </svg>
