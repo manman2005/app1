@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="mt-6 pt-6 border-t border-gray-200 space-y-3">
-                        <form action="/app1/user/profile/upload_picture" method="POST" enctype="multipart/form-data" class="space-y-3">
+                        <form action="<?= BASE_PATH ?>/user/profile/upload_picture" method="POST" enctype="multipart/form-data" class="space-y-3">
                             <div>
                                 <label for="profile_picture_upload" class="block text-sm font-medium text-gray-700 mb-2">เปลี่ยนรูปโปรไฟล์ใหม่</label>
                                 <input type="file" name="profile_picture" id="profile_picture_upload" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-light file:text-accent-dark hover:file:bg-accent-dark hover:file:text-white transition duration-300">
@@ -67,7 +67,7 @@
                 <!-- Edit Profile Form -->
                 <div class="bg-white rounded-2xl shadow-lg p-8">
                     <h3 class="text-2xl font-bold text-gray-800 mb-6">แก้ไขข้อมูลส่วนตัว</h3>
-                    <form action="/app1/user/profile/update" method="POST" class="space-y-6">
+                    <form action="<?= BASE_PATH ?>/user/profile/update" method="POST" class="space-y-6">
                         <div>
                             <label for="username" class="block text-sm font-medium text-gray-700">ชื่อผู้ใช้</label>
                             <input type="text" name="username" id="username" value="<?= htmlspecialchars($user['username']); ?>" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-accent focus:border-accent sm:text-sm">
@@ -91,7 +91,7 @@
                 <!-- Change Password Form -->
                 <div class="bg-white rounded-2xl shadow-lg p-8">
                     <h3 class="text-2xl font-bold text-gray-800 mb-6">เปลี่ยนรหัสผ่าน</h3>
-                    <form action="/app1/user/profile/change_password" method="POST" class="space-y-6">
+                    <form action="<?= BASE_PATH ?>/user/profile/change_password" method="POST" class="space-y-6">
                         <div>
                             <label for="current_password" class="block text-sm font-medium text-gray-700">รหัสผ่านปัจจุบัน</label>
                             <input type="password" name="current_password" id="current_password" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-accent focus:border-accent sm:text-sm">

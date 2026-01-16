@@ -149,7 +149,12 @@ class ProfileController {
             $allowedfileExtensions = ['jpg', 'gif', 'png', 'jpeg'];
 
             if (in_array($fileExtension, $allowedfileExtensions)) {
-                $uploadFileDir = './uploads/avatars/';
+                // Use absolute filesystem path to avoid CWD issues
+                $uploadFileDir = __DIR__ . '/../../uploads/avatars/';
+                if (!is_dir($uploadFileDir)) {
+                    mkdir($uploadFileDir, 0777, true);
+                }
+
                 $dest_path = $uploadFileDir . $newFileName;
 
                 if(move_uploaded_file($fileTmpPath, $dest_path)) {
