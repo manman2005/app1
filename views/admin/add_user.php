@@ -1,10 +1,10 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
 
 
-<div class="container mx-auto px-6 py-8">
-    <h1 class="text-4xl font-bold text-text-main mb-8 text-center">เพิ่มผู้ใช้ใหม่</h1>
+<div class="py-2 sm:py-4">
+    <h1 class="text-2xl sm:text-4xl font-bold text-text-main mb-6 sm:mb-8 text-center">เพิ่มผู้ใช้ใหม่</h1>
 
-    <div class="bg-white shadow-2xl rounded-2xl overflow-hidden p-8 max-w-lg mx-auto">
+    <div class="bg-white shadow-2xl rounded-2xl overflow-hidden p-4 sm:p-8 max-w-lg mx-auto">
         <form action="<?= BASE_PATH ?>/admin/addUser" method="POST">
             <div class="mb-6">
                 <label class="block text-text-main text-sm font-bold mb-2" for="username">
@@ -37,11 +37,11 @@
                 </select>
             </div>
 
-            <div class="flex items-center justify-end mt-8">
-                 <a href="<?= BASE_PATH ?>/admin/dashboard" class="text-gray-600 hover:text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">
+            <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-3 mt-8">
+                 <a href="<?= BASE_PATH ?>/admin/dashboard" class="text-gray-600 hover:text-gray-800 font-bold py-2 px-4 rounded-lg text-center">
                     ยกเลิก
                 </a>
-                <button class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" type="submit">
+                <button class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg w-full sm:w-auto" type="submit">
                     เพิ่มผู้ใช้
                 </button>
             </div>

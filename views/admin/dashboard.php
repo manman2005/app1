@@ -1,8 +1,8 @@
 <?php include_once __DIR__ . '/../partials/header.php'; ?>
 
 
-<div class="container mx-auto px-6 py-8">
-    <h1 class="text-4xl font-bold text-text-main mb-8 text-center">Admin Dashboard</h1>
+<div class="py-2 sm:py-4">
+    <h1 class="text-2xl sm:text-4xl font-bold text-text-main mb-6 sm:mb-8 text-center">Admin Dashboard</h1>
 
     <?php if (isset($_SESSION['message']) || isset($_SESSION['error'])): ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -29,7 +29,7 @@
     </script>
     <?php endif; ?>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
         <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-center">
             <h3 class="text-lg font-semibold text-text-main">Total Users</h3>
             <p class="text-4xl font-bold text-accent mt-2"><?= $user_total_rows; ?></p>
@@ -46,30 +46,32 @@
 
     <div class="mb-8">
         <div class="border-b border-gray-200">
-            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                <button type="button" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-accent text-accent-dark" data-tab="user-management-tab">User Management</button>
-                <button type="button" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="booking-management-tab">Recent Bookings</button>
-                <button type="button" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="room-management-tab">Room Management</button>
+            <nav class="-mb-px flex gap-6 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [-ms-overflow-style:none]" aria-label="Tabs">
+                <button type="button" class="tab-button shrink-0 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-accent text-accent-dark" data-tab="user-management-tab">User Management</button>
+                <button type="button" class="tab-button shrink-0 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="booking-management-tab">Recent Bookings</button>
+                <button type="button" class="tab-button shrink-0 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="room-management-tab">Room Management</button>
             </nav>
         </div>
 
         <div id="user-management-tab" class="tab-content mt-4">
-            <div id="user-management" class="bg-accent-light p-6 rounded-lg shadow-md mb-8">
-                <div class="flex justify-between items-center mb-4">
+            <div id="user-management" class="bg-accent-light p-4 sm:p-6 rounded-lg shadow-md mb-6 sm:mb-8">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
                     <h2 class="text-2xl font-semibold text-text-main">User Management</h2>
-                    <a href="<?= BASE_PATH ?>/admin/addUser" class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add New User</a>
+                    <a href="<?= BASE_PATH ?>/admin/addUser" class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto text-center">Add New User</a>
                 </div>
 
                 <form method="GET" action="<?= BASE_PATH ?>/admin/dashboard" class="mb-4">
                     <input type="hidden" name="tab" value="user-management-tab">
-                    <div class="flex space-x-4">
-                        <input type="text" name="user_search" placeholder="Search users..." class="flex-grow p-2 border border-gray-300 rounded-md" value="<?= htmlspecialchars($user_search_term); ?>">
-                        <select name="user_role" class="p-2 border border-gray-300 rounded-md">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" name="user_search" placeholder="Search users..." class="w-full sm:flex-grow p-2 border border-gray-300 rounded-md" value="<?= htmlspecialchars($user_search_term); ?>">
+                        <select name="user_role" class="w-full sm:w-48 p-2 border border-gray-300 rounded-md">
                             <option value="">All Roles</option>
                             <option value="user" <?= $user_role_filter == 'user' ? 'selected' : ''; ?>>User</option>
                             <option value="admin" <?= $user_role_filter == 'admin' ? 'selected' : ''; ?>>Admin</option>
                         </select>
-                        <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></button>
+                        <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto inline-flex justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        </button>
                     </div>
                 </form>
 
@@ -97,11 +99,13 @@
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?php echo htmlspecialchars($user['phone_number'] ?? 'N/A'); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?php echo htmlspecialchars($user['role']); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-right">
-                                <a href="<?= BASE_PATH ?>/admin/editUser?id=<?= htmlspecialchars($user['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md transition duration-300 mr-2">Edit</a>
-                                <form action="<?= BASE_PATH ?>/admin/deleteUser" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                <div class="inline-flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-end">
+                                    <a href="<?= BASE_PATH ?>/admin/editUser?id=<?= htmlspecialchars($user['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-2 sm:py-1 px-3 rounded-md transition duration-300 text-center">Edit</a>
+                                    <form action="<?= BASE_PATH ?>/admin/deleteUser" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                     <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']); ?>">
-                                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded-md transition duration-300">Delete</button>
-                                </form>
+                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-2 sm:py-1 px-3 rounded-md transition duration-300 w-full sm:w-auto">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -149,20 +153,22 @@
 
         <div id="booking-management-tab" class="tab-content mt-4 hidden">
             <!-- Bookings Table -->
-            <div id="booking-management" class="bg-accent-light p-6 rounded-lg shadow-md mb-8">
+            <div id="booking-management" class="bg-accent-light p-4 sm:p-6 rounded-lg shadow-md mb-6 sm:mb-8">
                 <h2 class="text-2xl font-semibold text-text-main mb-4">Recent Bookings</h2>
 
                 <form method="GET" action="<?= BASE_PATH ?>/admin/dashboard" class="mb-4">
                     <input type="hidden" name="tab" value="booking-management-tab">
-                    <div class="flex space-x-4">
-                        <input type="text" name="booking_search" placeholder="Search bookings..." class="flex-grow p-2 border border-gray-300 rounded-md" value="<?= htmlspecialchars($booking_search_term); ?>">
-                        <select name="booking_status" class="p-2 border border-gray-300 rounded-md">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" name="booking_search" placeholder="Search bookings..." class="w-full sm:flex-grow p-2 border border-gray-300 rounded-md" value="<?= htmlspecialchars($booking_search_term); ?>">
+                        <select name="booking_status" class="w-full sm:w-56 p-2 border border-gray-300 rounded-md">
                             <option value="">All Statuses</option>
                             <option value="confirmed" <?= $booking_status_filter == 'confirmed' ? 'selected' : ''; ?>>Confirmed</option>
                             <option value="pending" <?= $booking_status_filter == 'pending' ? 'selected' : ''; ?>>Pending</option>
                             <option value="cancelled" <?= $booking_status_filter == 'cancelled' ? 'selected' : ''; ?>>Cancelled</option>
                         </select>
-                        <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></button>
+                        <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto inline-flex justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        </button>
                     </div>
                 </form>
 
@@ -202,14 +208,16 @@
                             <td class="py-3 px-6 whitespace-nowrap text-text-main"><?= date('d', strtotime($booking['created_at'])) . ' ' . $thai_months[date('m', strtotime($booking['created_at'])) - 1] . ' ' . (date('Y', strtotime($booking['created_at'])) + 543) . ', ' . date('H:i', strtotime($booking['created_at'])); ?></td>
                             <td class="py-3 px-6 whitespace-nowrap text-right">
                                     <?php if ($booking['status'] == 'pending'): ?>
-                                        <form action="<?= BASE_PATH ?>/admin/approveBooking" method="POST" class="inline-block mr-2">
+                                        <div class="inline-flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-end">
+                                        <form action="<?= BASE_PATH ?>/admin/approveBooking" method="POST" class="inline-block">
                                             <input type="hidden" name="booking_id" value="<?= htmlspecialchars($booking['id']); ?>">
-                                            <button type="submit" class="bg-accent hover:bg-opacity-80 text-white text-sm py-1 px-3 rounded-md transition duration-300">อนุมัติ</button>
+                                            <button type="submit" class="bg-accent hover:bg-opacity-80 text-white text-sm py-2 sm:py-1 px-3 rounded-md transition duration-300 w-full sm:w-auto">อนุมัติ</button>
                                         </form>
                                         <form action="<?= BASE_PATH ?>/admin/rejectBooking" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to reject this booking?');">
                                             <input type="hidden" name="booking_id" value="<?= htmlspecialchars($booking['id']); ?>">
-                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded-md transition duration-300">ปฏิเสธ</button>
+                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-2 sm:py-1 px-3 rounded-md transition duration-300 w-full sm:w-auto">ปฏิเสธ</button>
                                         </form>
+                                        </div>
                                     <?php endif; ?>
                                 </td>
                         </tr>
@@ -257,28 +265,30 @@
         </div>
 
         <div id="room-management-tab" class="tab-content mt-4 hidden">
-            <div id="room-management" class="bg-accent-light p-6 rounded-lg shadow-md mb-8">
-                <div class="flex justify-between items-center mb-4">
+            <div id="room-management" class="bg-accent-light p-4 sm:p-6 rounded-lg shadow-md mb-6 sm:mb-8">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
                     <h2 class="text-2xl font-semibold text-text-main">Room Management</h2>
-                    <a href="<?= BASE_PATH ?>/admin/addRoom" class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add New Room</a>
+                    <a href="<?= BASE_PATH ?>/admin/addRoom" class="bg-accent hover:bg-opacity-80 text-white text-xs sm:text-sm font-medium py-1 px-2.5 sm:py-1.5 sm:px-3 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto text-center">Add New Room</a>
                 </div>
 
                 <form method="GET" action="<?= BASE_PATH ?>/admin/dashboard" class="mb-4">
                     <input type="hidden" name="tab" value="room-management-tab">
-                    <div class="flex space-x-4">
-                        <input type="text" name="room_search" placeholder="Search rooms..." class="flex-grow p-2 border border-gray-300 rounded-md" value="<?= htmlspecialchars($room_search_term); ?>">
-                        <select name="room_type" class="p-2 border border-gray-300 rounded-md">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" name="room_search" placeholder="Search rooms..." class="w-full sm:flex-grow p-2 border border-gray-300 rounded-md" value="<?= htmlspecialchars($room_search_term); ?>">
+                        <select name="room_type" class="w-full sm:w-56 p-2 border border-gray-300 rounded-md">
                             <option value="">All Types</option>
                             <option value="Standard" <?= $room_type_filter == 'Standard' ? 'selected' : ''; ?>>Standard</option>
                             <option value="Deluxe" <?= $room_type_filter == 'Deluxe' ? 'selected' : ''; ?>>Deluxe</option>
                             <option value="Suite" <?= $room_type_filter == 'Suite' ? 'selected' : ''; ?>>Suite</option>
                         </select>
-                        <select name="room_availability" class="p-2 border border-gray-300 rounded-md">
+                        <select name="room_availability" class="w-full sm:w-56 p-2 border border-gray-300 rounded-md">
                             <option value="">All Statuses</option>
                             <option value="1" <?= $room_availability_filter == '1' ? 'selected' : ''; ?>>Available</option>
                             <option value="0" <?= $room_availability_filter == '0' ? 'selected' : ''; ?>>Not Available</option>
                         </select>
-                        <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></button>
+                        <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto inline-flex justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="black"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        </button>
                     </div>
                 </form>
 
@@ -318,11 +328,13 @@
                                 ?>
                             </td>
                             <td class="py-3 px-6 whitespace-nowrap text-right">
-                                <a href="<?= BASE_PATH ?>/admin/editRoom?id=<?= htmlspecialchars($room['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md transition duration-300 mr-2">Edit</a>
+                                <div class="inline-flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-end">
+                                <a href="<?= BASE_PATH ?>/admin/editRoom?id=<?= htmlspecialchars($room['id']); ?>" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-2 sm:py-1 px-3 rounded-md transition duration-300 text-center">Edit</a>
                                 <form action="<?= BASE_PATH ?>/admin/deleteRoom" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this room?');">
                                     <input type="hidden" name="id" value="<?= htmlspecialchars($room['id']); ?>">
-                                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded-md transition duration-300">Delete</button>
+                                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-2 sm:py-1 px-3 rounded-md transition duration-300 w-full sm:w-auto">Delete</button>
                                 </form>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>

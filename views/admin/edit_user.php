@@ -1,8 +1,8 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
 
 
-<div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Edit User</h1>
+<div class="py-2 sm:py-4">
+    <h1 class="text-2xl sm:text-4xl font-bold text-text-main mb-6 sm:mb-8 text-center">แก้ไขผู้ใช้</h1>
 
     <?php if (isset($_SESSION['message']) || isset($_SESSION['error'])): ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -29,47 +29,47 @@
     </script>
     <?php endif; ?>
 
-    <form action="<?= BASE_PATH ?>/admin/editUser" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form action="<?= BASE_PATH ?>/admin/editUser" method="POST" class="bg-white shadow-2xl rounded-2xl px-4 sm:px-8 pt-6 pb-8 mb-4 max-w-lg mx-auto">
         <input type="hidden" name="id" value="<?= htmlspecialchars($userData['id']); ?>">
         
         <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                Username:
+            <label class="block text-text-main text-sm font-bold mb-2" for="username">
+                ชื่อผู้ใช้:
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" name="username" value="<?= htmlspecialchars($userData['username']); ?>" required>
+            <input class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-text-main focus:ring-accent focus:border-accent transition" id="username" type="text" name="username" value="<?= htmlspecialchars($userData['username']); ?>" required>
         </div>
 
         <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                Email:
+            <label class="block text-text-main text-sm font-bold mb-2" for="email">
+                อีเมล:
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="email" value="<?= htmlspecialchars($userData['email']); ?>" required>
+            <input class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-text-main focus:ring-accent focus:border-accent transition" id="email" type="email" name="email" value="<?= htmlspecialchars($userData['email']); ?>" required>
         </div>
 
         <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                New Password (leave blank to keep current password):
+            <label class="block text-text-main text-sm font-bold mb-2" for="password">
+                รหัสผ่านใหม่ (เว้นว่างเพื่อใช้รหัสผ่านเดิม):
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password">
+            <input class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-text-main focus:ring-accent focus:border-accent transition" id="password" type="password" name="password">
         </div>
 
         <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="role">
-                Role:
+            <label class="block text-text-main text-sm font-bold mb-2" for="role">
+                บทบาท:
             </label>
-            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="role" name="role" required>
+            <select class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-text-main focus:ring-accent focus:border-accent transition" id="role" name="role" required>
                 <option value="user" <?= ($userData['role'] === 'user') ? 'selected' : ''; ?>>User</option>
                 <option value="admin" <?= ($userData['role'] === 'admin') ? 'selected' : ''; ?>>Admin</option>
             </select>
         </div>
 
-        <div class="flex items-center justify-between">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                Update User
-            </button>
-            <a href="<?= BASE_PATH ?>/admin/dashboard" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-                Cancel
+        <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
+            <a href="<?= BASE_PATH ?>/admin/dashboard" class="text-gray-600 hover:text-gray-800 font-bold py-2 px-4 rounded-lg text-center">
+                ยกเลิก
             </a>
+            <button class="bg-accent hover:bg-opacity-80 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg w-full sm:w-auto" type="submit">
+                บันทึกการเปลี่ยนแปลง
+            </button>
         </div>
     </form>
 </div>
